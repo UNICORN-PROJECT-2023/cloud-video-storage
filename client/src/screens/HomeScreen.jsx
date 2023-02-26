@@ -9,6 +9,7 @@ function Home() {
         <HomePage
         title="Home"
         onButtonClick={onButtonClick}
+        link="/test"
         />
     );
 }
