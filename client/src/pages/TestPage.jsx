@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function TestScreen(props) {
+function TestPage(props) {
     return (
         <div>
             <h1>{props.title}</h1>
@@ -12,4 +12,4 @@ function TestScreen(props) {
         </div>
     );
 }
-export default TestScreen;
+export default TestPage;

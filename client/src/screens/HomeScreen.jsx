@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 
-function Home() {
+function HomeScreen() {
     function onButtonClick () {
         alert('button clicked');
     }
@@ -13,4 +12,4 @@ function Home() {
         />
     );
 }
-export default Home;
+export default HomeScreen;
