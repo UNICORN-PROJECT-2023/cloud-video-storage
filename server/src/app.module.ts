@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { APP_GUARD } from '@nestjs/core';
+import { Guard } from './config/guard';
+import { MainModule } from './modules/main/main.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [MainModule],
+  controllers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: Guard,
+    },
+  ],
+  exports: [],
 })
 export class AppModule {}
