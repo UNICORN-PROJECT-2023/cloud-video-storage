@@ -8,7 +8,10 @@ function TestPage(props) {
             <Link to={props.link}>
                 <button>Route</button>
             </Link>
-            <button onClick={props.onButtonClick}>click me</button>
+            <button onClick={props.onButtonClick}>{props.buttonText}</button>
+            <div className="data">
+                {props.data}
+            </div>
         </div>
     );
 }
