@@ -14,9 +14,6 @@ async function bootstrap() {
   // init dto validator
   Validator.init(app)
 
-  // 
-  // app.useGlobalGuards(new Guard());
-
   // start app
   await app.listen(3000);
 }

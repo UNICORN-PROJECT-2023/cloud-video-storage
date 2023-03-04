@@ -17,7 +17,7 @@ export class UserController {
   }
 
   @Put("me")
-  @SetMetadata('roles', ['user'])
+  @Roles("user")
   async putMe(): Promise<string> {
     return await this.userService.putMe();
   }
@@ -28,7 +28,7 @@ export class UserController {
   }
 
   @Post("register")
-  async register( @Body() userDto: UserDto ): Promise<string> {
+  async register( @Body() userDto: UserDto ): Promise<object> {
     return await this.userService.register();
   }
 }

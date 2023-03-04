@@ -11,8 +11,10 @@ export class UserService {
     return 'updated me';
   }
 
-  async register(): Promise<string> {
-    return 'registered';
+  async register(): Promise<object> {
+    return {
+      username: 'pepa',
+    };
   }
 
   async login(): Promise<string> {
