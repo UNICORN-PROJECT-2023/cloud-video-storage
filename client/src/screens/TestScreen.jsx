@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import TestPage from '../pages/TestPage';
-import ApiService from '../services/apiService';
+import UserService from '../services/userService';
 
 function TestScreen() {
   const [data, setData] = useState();
-  const apiService = new ApiService();
+  const userService = new UserService();
 
   async function onButtonClick() {
     const data = {
       email: 'pavelsuchanek@seznam.cz',
       password: '10785Rsdj__sx/"'
     };
-    const response = await apiService.post('/register', data);
+    const response = await userService.register(data.email, data.password);
     console.log(response)
     setData(response)
   }

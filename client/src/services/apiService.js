@@ -1,11 +1,16 @@
 export default class ApiService {
     constructor() {
-      this.baseURL = 'http://localhost:3000/user';
+      this.baseURL = 'http://localhost:3000';
     }
   
     async get(url) {
-      const response = await fetch(this.baseURL + url);
-      return response.json();
+      const response = await fetch(this.baseURL + url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return response;
     }
   
     async post(url, data) {
@@ -28,13 +33,16 @@ export default class ApiService {
           'Content-Type': 'application/json'
         }
       });
-      return response.json();
+      return response;
     }
   
     async delete(url) {
       const response = await fetch(this.baseURL + url, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
-      return response.json();
+      return response;
     }
   }
