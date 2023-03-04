@@ -3,7 +3,7 @@ import TestPage from '../pages/TestPage';
 import ApiService from '../services/apiService';
 
 function TestScreen() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
   const apiService = new ApiService();
 
   async function onButtonClick() {
@@ -12,9 +12,9 @@ function TestScreen() {
       password: '10785Rsdj__sx/"'
     };
     const response = await apiService.post('/register', data);
-    setData(response);
+    console.log(response)
+    setData(response)
   }
-
 
   return (
     <TestPage

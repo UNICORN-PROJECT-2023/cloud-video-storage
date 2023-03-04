@@ -1,20 +1,48 @@
 class UserService { 
-    constructor() {
-        this.api = '/api/user'
+
+    userService = new UserService("/api/user");
+
+    login = async (email, password) => {
+      return fetch(userService.api + '/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json());
     }
-    login = (email, password) => {
-        return fetch.post(this.api + '/login', { email, password })
+    
+    register = async (email, password) => {
+      return fetch(userService.api + '/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json());
+    }
+    
+    logout = async  () => {
+      return fetch(userService.api + '/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json());
     }
 
-    register = (email, password) => {
-        return fetch.post(this.api + '/register', { email, password })
-    }
-
-    logout = () => {
-        return fetch.post(this.api + '/logout')
-    }
-
-    getCurrentUser = () => {
-        return fetch.get(this.api + '/api/user')
+    getCurrentUser = async () => {
+        const token = localStorage.getItem('token'); // získání tokenu z localStorage
+        return fetch(userService.api + '/getCurrentUser', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json());
     }
 }
