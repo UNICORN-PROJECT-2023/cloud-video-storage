@@ -17,7 +17,7 @@ export class UserController {
   }
 
   @Put("me")
-  @SetMetadata('roles', ['user'])
+  @Roles("user")
   async putMe(): Promise<string> {
     return await this.userService.putMe();
   }
