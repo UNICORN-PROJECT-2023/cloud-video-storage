@@ -10,9 +10,12 @@ export default class UserService {
       return response.json();
     }
     
-    register = async (email, password) => {
-      const response = await this.apiService.post('/user/register', { email, password });
-      return response.json();
+    register = async (name, email, password) => {
+      const response = await this.apiService.post('/user/register', { name, email, password });
+      if(response.status === 200 || response.status === 201 || response.status === 202) {
+        return await response.json();
+      }
+      throw new Error("Failed to register");
     }
     
     logout = async () => {
