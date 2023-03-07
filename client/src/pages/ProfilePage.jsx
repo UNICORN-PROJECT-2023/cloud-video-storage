@@ -1,4 +1,12 @@
 function ProfilePage(props) {
+
+    if(props.loading)   {
+        return(
+            <p>loading...</p>
+        )
+    }
+
+    // tohle se nespusti pokud je loading true
     return(
         <div className="profile-wrapper">
             <h1>{props.title}</h1>
