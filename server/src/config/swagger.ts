@@ -6,10 +6,11 @@ export class Swagger {
   static init(app: INestApplication) {
     // swagger default config
     const config = new DocumentBuilder()
-      .setTitle('Cats example')
+      .setTitle('Cloud Video Storage')
       .setDescription('The Cloud Video Storage API Swagger Interface')
-      .setVersion('0.1')
+      .setVersion('0.2')
       .addTag('Cloud Video Storage')
+      .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, config);
     

@@ -2,17 +2,17 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Provider } from './database.providers';
 import { CustomerEntity } from './entity/customer.entity';
-import { CustomerService } from './services/customer.service';
+import { CustomerDao } from './dao/customer.dao';
 
 @Module({
   imports: [
     ...Provider,
   ],
   providers: [
-    CustomerService
+    CustomerDao
   ],
   exports: [
-    CustomerService
+    CustomerDao
   ],
 })
 export class DatabaseModule {}
