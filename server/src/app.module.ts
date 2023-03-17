@@ -1,18 +1,16 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
-import { Guard } from './config/guard';
 import { MainModule } from './modules/main/main.module';
 import { CorsMiddleware } from './middleware/cors.middleware';
+import { GuardModule } from './modules/guard/guard.module';
+import { AuthGuard } from '@nestjs/passport';
 
 @Module({
-  imports: [MainModule],
-  controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: Guard,
-    },
+  imports: [
+    MainModule,
+    GuardModule
   ],
+  controllers: [],
   exports: [],
 })
 export class AppModule implements NestModule {
@@ -20,3 +18,5 @@ export class AppModule implements NestModule {
     consumer.apply(CorsMiddleware).forRoutes('*');
   }
 }
+
+// @UseGuards(AuthGuard('jwt'))
