@@ -28,7 +28,7 @@ function ProfileScreen() {
 
   return (
     <ProfilePage
-      title="Profile"
+      title="Profile page"
       isLoading={loading}
       username={data.username}
       email={data.email}

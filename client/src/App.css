@@ -1,8 +1,7 @@
 .App {
-    text-align: center;
     color: white;
 }
 body {
-    background-image: linear-gradient(to bottom right, #020202, #333333);
+    background-image: linear-gradient(to bottom right, #0D1117 30%, #252525);
     background-attachment: fixed;
-  }
+}
