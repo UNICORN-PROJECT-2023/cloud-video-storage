@@ -16,22 +16,22 @@ const StyledWrapper = styled.div`
 
 function ProfilePage(props) {
 
-    if(props.loading)   {
-        return(
+    if (props.loading) {
+        return (
             <p>loading...</p>
         )
     }
 
     // tohle se nespusti pokud je loading true
-    return(
+    return (
         <StyledWrapper className="profile-wrapper">
             <h1>{props.title}</h1>
             <StyledInfo>
-                email: {props.email}<br/>
-                username: {props.username}<br/>
-                password: {props.password}<br/>
+                email: {props.email}<br />
+                username: {props.username}<br />
+                password: {props.password}<br />
             </StyledInfo>
         </StyledWrapper>
-    ) 
+    )
 }
 export default ProfilePage;
