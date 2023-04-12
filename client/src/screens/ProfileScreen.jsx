@@ -6,34 +6,30 @@ function ProfileScreen() {
   const userService = new UserService();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    name: "",
+    username: "",
     email: "",
-    password: ""
   });
 
-  function onButtonClick() {
-    alert('button clicked');
+  async function getUser() {
+    setLoading(true);
+    const user = await userService.getCurrentUser();
+    setData({
+      username: user.body.username,
+      email: user.body.email,
+    });
+    setLoading(false);
   }
 
   useEffect(() => {
-    getMe();
-  },[])
-
-  async function getMe() {
-    setLoading(true);
-    const user = await userService.getCurrentUser();
-    setData(user);
-    setLoading(false);
-  }
+    getUser();
+  }, []);
 
   return (
     <ProfilePage
       title="Profile page"
-      isLoading={loading}
+      loading={loading}
       username={data.username}
       email={data.email}
-      password={data.password}
-      onButtonClick={onButtonClick}
       link="/test"
     />
   );

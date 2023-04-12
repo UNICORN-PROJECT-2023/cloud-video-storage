@@ -7,13 +7,20 @@ export default class UserService {
 
     login = async (email, password) => {
       const response = await this.apiService.post('/user/login', { email, password });
-      return response.json();
+      if(response.status === 200 || response.status === 201 || response.status === 202) {
+        const data = await response.json();
+        localStorage.setItem('token', data.body.token);
+        return data;
+      }
+      throw new Error("Failed to login");
     }
     
-    register = async (name, email, password) => {
-      const response = await this.apiService.post('/user/register', { name, email, password });
+    register = async (email, username, password) => {
+      const response = await this.apiService.post('/user/register', { email, username, password });
       if(response.status === 200 || response.status === 201 || response.status === 202) {
-        return await response.json();
+        const data = await response.json();
+        localStorage.setItem('token', data.body.token);
+        return data;
       }
       throw new Error("Failed to register");
     }
@@ -25,6 +32,11 @@ export default class UserService {
 
     getCurrentUser = async () => {
       const response = await this.apiService.get('/user/me');
-      return response.json();
+      if(response.status === 200 || response.status === 201 || response.status === 202) {
+        const data = await response.json();
+        console.log(data)
+        return data;
+      }
+      throw new Error("Failed to get current user");
     }
 }
