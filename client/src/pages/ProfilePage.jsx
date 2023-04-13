@@ -23,16 +23,18 @@ function ProfilePage(props) {
 
     if (props.loading) {
         return (
-            <h1 style={{display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight:'100svh'}}>loading...</h1>
+            <StyledWrapper>
+                <h1>loading...</h1>
+            </StyledWrapper>
         )
     }
 
     // tohle se nespusti pokud je loading true
     return (
-        <StyledWrapper className="profile-wrapper" >
+        <StyledWrapper>
             <h1>{props.title}</h1>
             <StyledInfo>
-               USERNAME: {props.username}<br />
+                USERNAME: {props.username}<br />
                 EMAIL: {props.email}<br />
             </StyledInfo>
         </StyledWrapper >

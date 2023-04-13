@@ -14,6 +14,7 @@ function LoginScreen() {
     try {
       const response = await userService.login(emailRef.current.value, passwordRef.current.value);
       navigate('/profile/');
+      window.location.reload();
       console.log(response)
     } catch (error) {
       console.log(error);
@@ -22,7 +23,7 @@ function LoginScreen() {
 
   return (
     <LoginPage
-      title="LOG IN"
+      title="LOGIN"
       buttonText="Login"
       onButtonClick={loginUser}
       emailInput = {emailRef}

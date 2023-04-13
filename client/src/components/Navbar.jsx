@@ -2,17 +2,12 @@ import logo from '../images/UniTubeLogo.png';
 import { useEffect, useState } from 'react';
 import UserService from '../services/userService';
 import { Link } from 'react-router-dom';
-
-const linkStyle = {
-    color: 'white',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    letterSpacing: '1px',
-}
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);
     const userService = new UserService();
+    const navigate = useNavigate();
     const [data, setData] = useState({
         username: "",
         email: "",
@@ -32,10 +27,22 @@ function Navbar() {
 
     function logout() {
         localStorage.removeItem('token');
+        setData({
+            username: "",
+            email: "",
+        });
+        navigate('/');
     }
 
     const handleSidebarToggle = () => {
         setShowSidebar(!showSidebar);
+    }
+
+    const linkStyle = {
+        color: 'white',
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+        letterSpacing: '1px',
     }
 
     return (
@@ -53,22 +60,22 @@ function Navbar() {
                 <div className="offcanvas-body d-flex justify-content-end">
                     <ul className="navbar-nav" style={{gap: '2rem', margin: '0.4rem 2rem'}}>
                         <li className="nav-item active">
-                            <Link  className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to="/">Home</Link>
+                            <Link className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to="/">Home</Link>
                         </li>
                         {!data.username ?
                             <>
                                 <li className="nav-item">
-                                    <Link  className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to="/login">Login</Link>
+                                    <Link className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to="/login">Login</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link  className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to="/register">Register</Link>
+                                    <Link className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to="/register">Register</Link>
                                 </li>
                             </>
                             : <li className="nav-item">
-                                <Link  className="nav-link" onClick={() => logout()} style={linkStyle} to="/">Logout</Link>
+                                <Link className="nav-link" onClick={() => logout()} style={linkStyle} to="/">Logout</Link>
                             </li>}
                         <li className="nav-item">
-                            <Link  className="nav-link" style={linkStyle} to="/profile">{data.username}</Link>
+                            <Link className="nav-link" style={linkStyle} to="/profile">{data.username}</Link>
                         </li>
                     </ul>
                 </div>

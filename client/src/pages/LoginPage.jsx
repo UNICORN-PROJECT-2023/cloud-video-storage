@@ -37,7 +37,8 @@ const StyledWrapper = styled.div`
     padding: 1rem 2rem;
     border-radius: 10rem 10rem 10rem 0;
     font-size: 1rem;
-    font-weight: 700;
+    letter-spacing: 1px;
+    font-weight: bold;
     cursor: pointer;
     background-color: #3c6ca8;
     &:hover {

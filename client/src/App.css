@@ -5,6 +5,7 @@
 }
 .App {
     color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 body {
     background-image: linear-gradient(to bottom right, #3c6ca8 35%, #b78fd6, #eae164);
