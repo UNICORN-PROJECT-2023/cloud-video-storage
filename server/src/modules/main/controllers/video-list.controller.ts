@@ -19,7 +19,10 @@ import { VideoListService } from '../services/video-list.service';
 @ApiBearerAuth()
 @Controller("/video/list")
 export class VideoListController {
-  constructor(private readonly videoListService: VideoListService) {}
+  constructor(
+    private readonly videoListService: VideoListService,
+    private readonly videoService: VideoService,
+    ) {}
 
   
   @Get("/all")
@@ -27,7 +30,7 @@ export class VideoListController {
   async getAllVideos(@Req() req: any): Promise<ResponseDto<Array<VideoOutDto>>> {
     const cstId = req.user.id;
 
-    const videoDaoArray = await this.videoListService.getAllVideosList(cstId);
+    const videoDaoArray = await this.videoService.getAllVideosSubscribers(cstId);
 
     const response = new ResponseDtoBuilder<Array<VideoOutDto>>()
     .setStatusCode(200)

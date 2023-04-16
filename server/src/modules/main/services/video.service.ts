@@ -12,6 +12,7 @@ import { VideoOutDto } from '../dto/video-out.dto';
 import { VideoDao } from 'src/modules/database/dao/video.dao';
 import { videoTransformer } from '../transformer/video-transformer';
 import { VideoInDto } from '../dto/video-in.dto';
+import { VideoType } from 'src/modules/database/types/video-type.type';
 
 
 @Injectable()
@@ -21,6 +22,35 @@ export class VideoService {
     @Inject(VideoDao)
     private videoDao: VideoDao,
   ) {}
+  
+  
+  async getAllVideosSubscribers(cstId: number): Promise<Array<VideoOutDto>> {
+    const videoEntityArray = await this.videoDao.findAll();
+
+    const videoDaoArray: Array<VideoOutDto> = videoEntityArray
+      .filter((videoEntity) => videoEntity.customerVideoEntity.find(
+        (customer) => customer.customerEntity.id == cstId && customer.type === VideoType.SUBSCRIBER)
+      )
+      .map(
+        (videoEntity) => videoTransformer.entityToDao(videoEntity)
+      ); 
+
+    return videoDaoArray;
+  }
+
+  async getAllVideosOwner(cstId: number): Promise<Array<VideoOutDto>> {
+    const videoEntityArray = await this.videoDao.findAll();
+
+    const videoDaoArray: Array<VideoOutDto> = videoEntityArray
+      .filter((videoEntity) => videoEntity.customerVideoEntity.find(
+        (customer) => customer.customerEntity.id == cstId && customer.type === VideoType.OWNER)
+      )
+      .map(
+        (videoEntity) => videoTransformer.entityToDao(videoEntity)
+      ); 
+
+    return videoDaoArray;
+  }
   
   async getAllVideos(): Promise<Array<VideoOutDto>> {
     const videoEntityArray = await this.videoDao.findAll();
