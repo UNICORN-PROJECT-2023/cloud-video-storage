@@ -1,8 +1,10 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomerVideoEntity } from './entity/customer-video.entity';
 import { CustomerEntity } from './entity/customer.entity';
+import { VideoEntity } from './entity/video.entity';
 
 // List of entities
-const entities = [CustomerEntity]
+const entities = [CustomerEntity, VideoEntity, CustomerVideoEntity]
 
 export const Provider = [
   TypeOrmModule.forRoot({
