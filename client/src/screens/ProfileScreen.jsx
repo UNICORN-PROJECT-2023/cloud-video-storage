@@ -52,10 +52,10 @@ function ProfileScreen() {
     try {
       const response = await videoService.createVideo(
         nameRef.current.value,
-        episodeRef.current.value,
         descriptionRef.current.value, 
+        Number(episodeRef.current.value),
         originalLinkRef.current.value, 
-        materialsRef.current.value
+        [materialsRef.current.value]
       );
       console.log(response.body);
     } catch (error) {

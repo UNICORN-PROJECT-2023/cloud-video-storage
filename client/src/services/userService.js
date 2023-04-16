@@ -29,7 +29,6 @@ export default class UserService {
       const response = await this.apiService.get('/user/me');
       if(response.status === 200 || response.status === 201 || response.status === 202) {
         const data = await response.json();
-        console.log(data)
         return data;
       }
       if(response.status === 401) {
