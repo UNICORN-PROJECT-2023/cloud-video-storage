@@ -7,7 +7,8 @@ export default class ApiService {
       const response = await fetch(this.baseURL + url, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization':'Bearer '  + localStorage.getItem('token')
         }
       });
       return response;
@@ -18,19 +19,20 @@ export default class ApiService {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization':'Bearer '  + localStorage.getItem('token')
         }
       });
       return response;
     }
     
-  
     async put(url, data) {
       const response = await fetch(this.baseURL + url, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization':'Bearer '  + localStorage.getItem('token')
         }
       });
       return response;
@@ -40,7 +42,8 @@ export default class ApiService {
       const response = await fetch(this.baseURL + url, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization':'Bearer '  + localStorage.getItem('token')
         }
       });
       return response;
