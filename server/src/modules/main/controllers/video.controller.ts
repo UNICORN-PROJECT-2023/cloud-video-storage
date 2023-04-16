@@ -21,7 +21,6 @@ export class VideoController {
 
   
   @Get("/all")
-  @Roles("user")
   async getAllVideos(@Req() req: any): Promise<ResponseDto<Array<VideoOutDto>>> {
     const videoDaoArray = await this.videoService.getAllVideos();
 
@@ -34,8 +33,23 @@ export class VideoController {
     return response;
   }
 
-  @Get("/:videoId")
+  @Get("/me")
   @Roles("user")
+  async getUserVideos(@Req() req: any): Promise<ResponseDto<Array<VideoOutDto>>> {
+    const cstId = req.user.id;
+
+    const videoDaoArray = await this.videoService.getAllVideosOwner(cstId);
+
+    const response = new ResponseDtoBuilder<Array<VideoOutDto>>()
+    .setStatusCode(200)
+    .setMessage("Received all customer videos")
+    .setBody(videoDaoArray)
+    .build();
+
+    return response;
+  }
+
+  @Get("/:videoId")
   @ApiParam({ name: 'videoId', type: Number })
   async getVideo(@Req() req: any, @Param('videoId') id: number): Promise<ResponseDto<VideoOutDto>> {
     console.log(id);
