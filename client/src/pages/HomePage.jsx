@@ -35,7 +35,7 @@ const StyledWrapper = styled.div`
 
 const StyledVideoList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 1rem;
   padding: 1rem 2rem;
   margin: 0 auto;
@@ -54,6 +54,7 @@ const StyledVideoList = styled.div`
   }
   .description {
     color: #28282B;
+    font-weight: 1000;
   }
   h3 {
     font-weight: 1000;
@@ -76,8 +77,8 @@ function HomePage(props) {
                             key={video.id}
                         >
                             <h3>{video.name}</h3>
+                            <iframe width="420" height="236" src="https://www.youtube.com/embed/SiY6QwTJyoI" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
                             <p className="description">{video.description}</p>
-                            <a href={video.originalLink}>{video.originalLink}</a>
                             <p>Create by: {video.owner.name}</p>
                             <span>created at: {video.createdAt}</span>
                             <p>updated at: {video.updatedAt}</p>

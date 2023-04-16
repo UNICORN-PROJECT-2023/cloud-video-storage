@@ -5,6 +5,8 @@ import Profile from './screens/ProfileScreen';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import Login from './screens/LoginScreen';
+import VideoDetailScreen from './screens/VideoDetailScreen';
+
 
 import './App.css';
 
@@ -23,6 +25,7 @@ function App() {
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/profile" /> : <Login />} />
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/profile" /> : <Register />} />
           <Route path="/profile" element={!isLoggedIn() ? <Navigate to="/login" /> : <Profile />}/>
+          <Route path="/video/:id" element={<VideoDetailScreen/>}/>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

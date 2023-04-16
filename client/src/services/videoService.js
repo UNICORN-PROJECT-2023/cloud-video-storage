@@ -15,6 +15,15 @@ export default class VideoService {
         throw new Error("Failed to get all videos");
     }
 
+    getUserVideos = async () => {
+        const response = await this.apiService.get('/video/me');
+        if (response.status === 200 || response.status === 201 || response.status === 202) {
+            const data = await response.json();
+            return data;
+        }
+        throw new Error("Failed to get user videos");
+    }
+
     getVideo = async (id) => {
         const response = await this.apiService.get(`/video/${id}`);
         if (response.status === 200 || response.status === 201 || response.status === 202) {

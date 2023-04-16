@@ -32,7 +32,7 @@ function ProfileScreen() {
   useEffect(() => {
     async function fetchUserVideos() {
       try {
-        const userVideos = await videoService.getAllVideos();
+        const userVideos = await videoService.getUserVideos();
         setUserVideos(userVideos.body);
         console.log(userVideos)
       } catch (error) {
@@ -52,16 +52,25 @@ function ProfileScreen() {
     try {
       const response = await videoService.createVideo(
         nameRef.current.value,
-        descriptionRef.current.value, 
+        descriptionRef.current.value,
         Number(episodeRef.current.value),
-        originalLinkRef.current.value, 
+        originalLinkRef.current.value,
         [materialsRef.current.value]
       );
       console.log(response.body);
     } catch (error) {
       console.log(error);
     }
-  } 
+  }
+
+  async function deleteVideo() {
+    try {
+      const response = await videoService.deleteVideo();
+      console.log(response.body);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <ProfilePage
@@ -70,16 +79,17 @@ function ProfileScreen() {
       username={data.username}
       email={data.email}
       link="/test"
-      
+
       dataForUserVideos={userVideos}
       nameRef={nameRef}
       descriptionRef={descriptionRef}
       episodeRef={episodeRef}
       urlRef={originalLinkRef}
       materialsRef={materialsRef}
+
       onButtonClick={createVideo}
+      onDeleteClick={deleteVideo}
     />
   );
 }
-
 export default ProfileScreen;

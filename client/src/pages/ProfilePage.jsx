@@ -18,7 +18,17 @@ const StyledVideoList = styled.div`
   }
   .gridItem:hover {
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 20%);
+  }
+  button {
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10rem 10rem 10rem 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: bold;
     cursor: pointer;
+    background-color: red;
   }
 `;
 const StyledWrapper = styled.div`
@@ -111,12 +121,9 @@ function ProfilePage(props) {
                 <input type="text" ref={props.materialsRef} placeholder="Materials" />
                 <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
             </StyledForm>
-
             <StyledVideoList>
                 {props.dataForUserVideos.map((video) => (
-                    <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                    <div
                         className="gridItem"
                         key={video.id}
                     >
@@ -126,12 +133,11 @@ function ProfilePage(props) {
                         <p>Owner: {video.owner.name}</p>
                         <span>created at: {video.createdAt}</span>
                         <p>updated at: {video.updatedAt}</p>
-                    </motion.div>
+                        <motion.button whileHover={{ scale: 0.9 }} onClick={props.onDeleteClick}>DELETE</motion.button>
+                    </div>
                 ))}
             </StyledVideoList>
         </>
-
-
     )
 }
 export default ProfilePage;
