@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import VideoList from '../components/VideoList';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 65svh;
+    min-height: 54svh;
     border-radius: 1rem;
     backdrop-filter: blur(50px);
 
@@ -32,6 +33,33 @@ const StyledWrapper = styled.div`
     }
 `;
 
+const StyledVideoList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 1rem;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .gridItem {
+    border-radius: 1rem;
+    color: black;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
+  }
+  .gridItem:hover {
+    box-shadow: 0 25px 80px 0 rgb(22 24 28 / 20%);
+    cursor: pointer;
+  }
+  .description {
+    color: #28282B;
+  }
+  h3 {
+    font-weight: 1000;
+  }
+`;
+
 function HomePage(props) {
     return (
         <>
@@ -39,7 +67,23 @@ function HomePage(props) {
                 <h1>Welcome to <span style={{ color: "#eae164", fontWeight: '1000' }}>UNITUBE</span></h1>
                 <p>{props.description}</p>
             </StyledWrapper>
-            <VideoList />
+            <StyledVideoList>
+                {props.allVideos.map((video) => (
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="gridItem"
+                            key={video.id}
+                        >
+                            <h3>{video.name}</h3>
+                            <p className="description">{video.description}</p>
+                            <a href={video.originalLink}>{video.originalLink}</a>
+                            <p>Create by: {video.owner.name}</p>
+                            <span>created at: {video.createdAt}</span>
+                            <p>updated at: {video.updatedAt}</p>
+                        </motion.div>
+                ))}
+            </StyledVideoList>
         </>
     );
 }

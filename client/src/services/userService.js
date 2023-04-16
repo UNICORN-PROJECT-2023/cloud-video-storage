@@ -32,6 +32,9 @@ export default class UserService {
         console.log(data)
         return data;
       }
+      if(response.status === 401) {
+        localStorage.removeItem('token');
+      }
       throw new Error("Failed to get current user");
     }
 }

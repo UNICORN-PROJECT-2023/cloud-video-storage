@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import UserService from '../services/userService';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion} from 'framer-motion';
 
 function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);

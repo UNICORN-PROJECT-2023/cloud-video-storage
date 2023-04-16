@@ -23,5 +23,5 @@ export class CustomerVideoEntity {
     this.videoEntity = videoEntity;
     this.customerEntity = customerEntity;
   }
-  
+
 }

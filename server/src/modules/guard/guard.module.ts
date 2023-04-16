@@ -12,7 +12,7 @@ import { JwtService } from './service/jwt.service';
     PassportModule,
     JwtModule.register({
       secret: jwtSecret,
-      signOptions: { expiresIn: '60m' },
+      signOptions: { expiresIn: '3d' },
     }),
   ],
   providers: [
