@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { CustomerVideoEntity } from './customer-video.entity';
 
 @Entity({ name: 'customer' })
 export class CustomerEntity {
@@ -13,6 +14,12 @@ export class CustomerEntity {
 
   @Column({ name: 'c_password' })
   password: string;
+
+  @OneToMany(
+    () => CustomerVideoEntity,
+    (customerVideoEntity) => customerVideoEntity.customerEntity
+  )
+  customerVideoEntity: CustomerVideoEntity[];
 
   constructor(email?: string, username?: string, password?: string) {
     this.email = email;
