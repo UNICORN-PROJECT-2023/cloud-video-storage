@@ -1,14 +1,10 @@
 import HomePage from '../pages/HomePage';
 
 function HomeScreen() {
-    function onButtonClick () {
-        alert('button clicked');
-    }
+
     return(
         <HomePage
-        title="Home"
-        onButtonClick={onButtonClick}
-        link="/test"
+        description="This is a video sharing platform where you can share your videos with the world."
         />
     );
 }

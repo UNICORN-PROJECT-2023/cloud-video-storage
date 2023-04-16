@@ -8,11 +8,11 @@ import Login from './screens/LoginScreen';
 
 import './App.css';
 
-
-const isLoggedIn = localStorage.getItem('token') ? true : false;
-
-
 function App() {
+  function isLoggedIn() {
+    return localStorage.getItem('token') ? true : false;
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,9 +20,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/login" element={isLoggedIn ? <Navigate to="/profile" /> : <Login />} />
-          <Route path="/register" element={isLoggedIn ? <Navigate to="/profile" /> : <Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={isLoggedIn() ? <Navigate to="/profile" /> : <Login />} />
+          <Route path="/register" element={isLoggedIn() ? <Navigate to="/profile" /> : <Register />} />
+          <Route path="/profile" element={!isLoggedIn() ? <Navigate to="/login" /> : <Profile />}/>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

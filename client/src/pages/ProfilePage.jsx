@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import CreateVideoForm from '../components/CreateVideoForm';
+import UsersVideos from '../components/UsersVideos';
 
 const StyledInfo = styled.p`
     display: flex;
@@ -9,7 +11,6 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100svh;
     font-size: 2rem;
     font-weight: 1000;
 
@@ -31,13 +32,19 @@ function ProfilePage(props) {
 
     // tohle se nespusti pokud je loading true
     return (
+        <>
         <StyledWrapper>
             <h1>{props.title}</h1>
             <StyledInfo>
-                USERNAME: {props.username}<br />
-                EMAIL: {props.email}<br />
+                USERNAME : {props.username}<br />
+                EMAIL : {props.email}<br />
             </StyledInfo>
         </StyledWrapper >
+        <CreateVideoForm /> 
+        <UsersVideos />
+        </>
+
+        
     )
 }
 export default ProfilePage;

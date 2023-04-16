@@ -24,11 +24,6 @@ export default class UserService {
       }
       throw new Error("Failed to register");
     }
-    
-    logout = async () => {
-     const response = await this.apiService.post('/user/logout');
-     return response.json();
-    }
 
     getCurrentUser = async () => {
       const response = await this.apiService.get('/user/me');

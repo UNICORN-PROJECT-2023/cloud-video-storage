@@ -1,15 +1,23 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import {Link} from 'react-router-dom';
 
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  max-width: 500px;
+  min-height: 70svh;
+  max-width: 700px;
   font-size: 1.5rem;
   margin: 0 auto;
+  border-radius: 1rem;
+  backdrop-filter: blur(50px);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    margin: 0 1rem;
+  }
 
   input {
     padding: 1rem;
@@ -17,7 +25,7 @@ const StyledWrapper = styled.div`
     border: 2px solid white;
     border-radius: 5px;
     font-size: 1rem;
-    width: 25rem;
+    width: 65%;
 
     &:focus {
       outline: none;
@@ -28,10 +36,10 @@ const StyledWrapper = styled.div`
   h1 {
     padding: 1rem;
     font-weight: 1000;
+    color: #eae164;
   }
 
   button {
-    background-color: black;
     color: #fff;
     border: none;
     padding: 1rem 2rem;
@@ -41,9 +49,10 @@ const StyledWrapper = styled.div`
     font-weight: bold;
     cursor: pointer;
     background-color: #3c6ca8;
-    &:hover {
-      background-color: #3c6ca2;
-    }
+  }
+  p {
+    color: rgb(235, 222, 222);
+    font-size: 1.2rem;
   }
 `;
 
@@ -53,7 +62,9 @@ function LoginPage(props) {
             <h1>{props.title}</h1>
             <input ref={props.emailInput}  type="email" placeholder="Email" />
             <input ref={props.passwordInput} type="password" placeholder="Password" />
+            <p>If you dont have an account <Link to="/register" style={{textDecoration: 'none', color: 'black'}}>Register here</Link></p>
             <motion.button whileHover={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
+           
         </StyledWrapper>
     );
 }
