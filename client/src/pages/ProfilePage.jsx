@@ -133,7 +133,7 @@ function ProfilePage(props) {
                         <p>Owner: {video.owner.name}</p>
                         <span>created at: {video.createdAt}</span>
                         <p>updated at: {video.updatedAt}</p>
-                        <motion.button whileHover={{ scale: 0.9 }} onClick={props.onDeleteClick}>DELETE</motion.button>
+                        <motion.button whileHover={{ scale: 0.9 }} onClick={ () => props.onDeleteClick(video.id)}>DELETE</motion.button>
                     </div>
                 ))}
             </StyledVideoList>

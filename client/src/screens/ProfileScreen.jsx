@@ -63,10 +63,10 @@ function ProfileScreen() {
     }
   }
 
-  async function deleteVideo() {
+  async function deleteVideo(videoId) {
     try {
-      const response = await videoService.deleteVideo();
-      console.log(response.body);
+      const response = await videoService.deleteVideo(videoId);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
