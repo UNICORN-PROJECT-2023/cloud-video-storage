@@ -48,8 +48,7 @@ export default class VideoService {
         const response = await this.apiService.put(`/video/${id}`, { name, description, episode, originalLink, materials });
         console.log(await response.json());
         if (response.status === 200 || response.status === 201 || response.status === 202) {
-            const data = await response.json();
-            return data;
+            return;
         }
         throw new Error("Failed to update video");
     }

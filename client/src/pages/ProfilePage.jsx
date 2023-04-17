@@ -139,12 +139,12 @@ function ProfilePage(props) {
       </StyledForm>
 
       <StyledVideoList>
-        {props.dataForUserVideos.map((video) => (
+        {props.dataForUserVideos?.map((video) => (
           <motion.div
             whileHover={{ scale: 1.1 }}
             className="gridItem"
             key={video.id}
-          > {props.editMode ? (
+          > {video.editMode ? (
             <>
               <StyledForm>
                 <input type="text" ref={props.editNameRef} defaultValue={video.name} placeholder="Title" />
@@ -153,6 +153,7 @@ function ProfilePage(props) {
                 <input type="text" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
                 <input type="text" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
                 <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.updateVideo(video.id)}>Confirm</motion.button>
+                <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onCancelClick(video.id)}>Cancel</motion.button>
               </StyledForm>
             </>
           ) : (

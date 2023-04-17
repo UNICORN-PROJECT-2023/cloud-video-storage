@@ -5,13 +5,13 @@ export class VideoInDto {
   
   @IsString()
   @MinLength(1)
-  @MaxLength(20)
+  @MaxLength(40)
   @ApiProperty({required: true})
   name: string;
   
   @IsString()
   @MinLength(1)
-  @MaxLength(200)
+  @MaxLength(2000)
   @IsOptional()
   @ApiProperty({required: false})
   description: string;
@@ -30,6 +30,7 @@ export class VideoInDto {
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(0)
+  @IsOptional()
   @ApiProperty({required: true})
   materials: Array<string>;
   

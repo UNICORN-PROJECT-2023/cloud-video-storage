@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function RegisterScreen() {
   const userService = new UserService();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const emailRef = useRef();
   const usernameRef = useRef();
@@ -17,7 +18,7 @@ function RegisterScreen() {
       navigate('/profile/');
       console.log(response)
     } catch (error) {
-      console.log(error);
+      setError(error)
     }
   }
 
@@ -25,6 +26,7 @@ function RegisterScreen() {
     <RegisterPage
       title="REGISTER"
       buttonText="Register"
+      error={error}
       onButtonClick={registerUser}
       emailInput = {emailRef}
       usernameInput = {usernameRef}

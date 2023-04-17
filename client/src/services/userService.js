@@ -22,7 +22,8 @@ export default class UserService {
         localStorage.setItem('token', data.body.token);
         return data;
       }
-      throw new Error("Failed to register");
+      const error = await response.json();
+      throw new Error(error.message);
     }
 
     getCurrentUser = async () => {
