@@ -68,6 +68,19 @@ overflow: hidden;
   h3 {
     font-weight: 1000;
   }
+
+  button {
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0.2rem;
+    border-radius: 10rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #3c6ca8;
+  }
 `;
 
 function HomePage(props) {
@@ -79,28 +92,36 @@ function HomePage(props) {
             </StyledWrapper>
             <StyledVideoList>
                 {props.allVideos.map((video) => (
-                    <Link to={`/video/${video.id}`} style={{textDecoration: 'none'}} key={video.id}>
-                        <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="gridItem"
-                            style={{color: 'black'}}
-                        >
-                            <div className="iframeWrapper">
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
-                                    title="YouTube video player"
-                                    frameBorder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowFullScreen
-                                />
+
+                    <div
+                        
+                        className="gridItem"
+                        style={{ color: 'black' }}
+                        key={video.id}
+                    >
+
+                        <div className="iframeWrapper">
+                            <iframe
+                                src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                            />
+                        </div>
+                        <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                            <div>
+                                <h3>{video.name}</h3>
+                                <p>Owner: {video.owner.name}</p>
+                                <span>created at: {video.createdAt}</span>
+                                <p>updated at: {video.updatedAt}</p>
+
                             </div>
-                            <h3>{video.name}</h3>
-                            <p>Create by: {video.owner.name}</p>
-                            <span>created at: {video.createdAt}</span>
-                            <p>updated at: {video.updatedAt}</p>
-                        </motion.div>
-                    </Link>
+                        </Link>
+                        <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>Add to list</motion.button>
+
+
+                    </div>
                 ))}
             </StyledVideoList>
         </>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { color, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const StyledVideoList = styled.div`
@@ -183,11 +183,13 @@ function ProfilePage(props) {
         <input type="text" ref={props.episodeRef} placeholder="Episode" />
         <input type="text" ref={props.urlRef} placeholder="Url" />
         <input type="text" ref={props.materialsRef} placeholder="Materials" />
-        {props.error && <p style={{color: '#D2122E', fontWeight: '1000'}}>{String(props.error)}</p>}
+        {props.error && <p style={{ color: '#D2122E', fontWeight: '1000' }}>{String(props.error)}</p>}
         <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
       </StyledForm>
 
-      <StyledVideoList>
+      <h1 style={{textAlign: 'center'}}>My Videos</h1>
+      <StyledVideoList >
+        
         {props.dataForUserVideos?.map((video) => (
           <div
             className="gridItem"
@@ -215,10 +217,14 @@ function ProfilePage(props) {
                   allowFullScreen
                 />
               </div>
-              <h3>{video.name}</h3>
-              <p>Owner: {video.owner.name}</p>
-              <span>created at: {video.createdAt}</span>
-              <p>updated at: {video.updatedAt}</p>
+              <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                <div>
+                  <h3>{video.name}</h3>
+                  <p>Owner: {video.owner.name}</p>
+                  <span>created at: {video.createdAt}</span>
+                  <p>updated at: {video.updatedAt}</p>
+                </div>
+              </Link>
               <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteClick(video.id)}>DELETE</motion.button>
               <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.editModeTrue(video.id)}>Edit</motion.button>
             </>

@@ -40,7 +40,6 @@ export default function VideoDetailPage(props) {
         />
         <h3>{props.videosData?.name}</h3>
         <p>{props.videosData?.description}</p>
-        <a href={props.videosData?.originalLink}>{props.videosData?.originalLink}</a>
         <p>Owner: {props.videosData?.owner?.name}</p>
         <span>created at: {props.videosData?.createdAt}</span>
         <p>updated at: {props.videosData?.updatedAt}</p>
