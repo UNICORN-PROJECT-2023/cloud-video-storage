@@ -15,6 +15,7 @@ const StyledVideoList = styled.div`
     padding: 1rem;
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
     color: black;
+    background-color: white;
     .iframeWrapper {
         position: relative;
         padding-top: 56.25%; /* 16:9 aspect ratio */
@@ -41,6 +42,10 @@ const StyledVideoList = styled.div`
     font-weight: bold;
     cursor: pointer;
     background-color: red;
+    width: 50%;
+  }
+  .editButton {
+    background-color: orange
   }
 `;
 const StyledWrapper = styled.div`
@@ -66,7 +71,6 @@ padding: 1rem;
 font-size: 1.5rem;
 margin: 2rem auto 4rem;
 border-radius: 1rem;
-backdrop-filter: blur(50px);
 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
 @media (max-width: 768px) {
@@ -133,14 +137,26 @@ function ProfilePage(props) {
         <input type="text" ref={props.materialsRef} placeholder="Materials" />
         <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
       </StyledForm>
+
       <StyledVideoList>
         {props.dataForUserVideos.map((video) => (
-          <Link to={`/video/${video.id}`} style={{ textDecoration: 'none' }} key={video.id}>
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="gridItem"
-            >
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="gridItem"
+            key={video.id}
+          > {props.editMode ? (
+            <>
+              <StyledForm>
+                <input type="text" ref={props.editNameRef} defaultValue={video.name} placeholder="Title" />
+                <textarea type="text" ref={props.editDescriptionRef} defaultValue={video.description} style={{ width: '65%' }} rows="4" placeholder="Description" />
+                <input type="text" ref={props.editEpisodeRef} defaultValue={video.episode} placeholder="Episode" />
+                <input type="text" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
+                <input type="text" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
+                <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.updateVideo(video.id)}>Confirm</motion.button>
+              </StyledForm>
+            </>
+          ) : (
+            <>
               <div className="iframeWrapper">
                 <iframe
                   src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
@@ -156,8 +172,10 @@ function ProfilePage(props) {
               <span>created at: {video.createdAt}</span>
               <p>updated at: {video.updatedAt}</p>
               <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteClick(video.id)}>DELETE</motion.button>
-            </motion.div>
-          </Link>
+              <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.editModeTrue(video.id)}>Edit</motion.button>
+            </>
+          )}
+          </motion.div>
         ))}
       </StyledVideoList>
     </>

@@ -8,6 +8,7 @@ function ProfileScreen() {
   const videoService = new VideoService();
   const [loading, setLoading] = useState(false);
   const [userVideos, setUserVideos] = useState([]);
+  const [edit, setEdit] = useState(false);
   const [data, setData] = useState({
     id: "",
     username: "",
@@ -57,6 +58,12 @@ function ProfileScreen() {
   const originalLinkRef = useRef();
   const materialsRef = useRef();
 
+  const editNameRef = useRef();
+  const editEpisodeRef = useRef();
+  const editDescriptionRef = useRef();
+  const editOriginalLinkRef = useRef();
+  const editMaterialsRef = useRef();
+
   async function createVideo() {
     try {
       const response = await videoService.createVideo(
@@ -70,6 +77,27 @@ function ProfileScreen() {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async function updateVideo(videoId) {
+    try {
+      const response = await videoService.updateVideo(
+        videoId,
+        editNameRef.current.value,
+        editDescriptionRef.current.value,
+        Number(editEpisodeRef.current.value),
+        editOriginalLinkRef.current.value,
+        [editMaterialsRef.current.value]
+      );
+      console.log(response.body);
+    } catch (error) {
+      console.log(error);
+    }
+    setEdit(false)
+  }
+
+  function editModeTrue() {
+    setEdit(true);
   }
 
   async function deleteVideo(videoId) {
@@ -97,7 +125,17 @@ function ProfileScreen() {
       urlRef={originalLinkRef}
       materialsRef={materialsRef}
 
+      editNameRef={editNameRef}
+      editDescriptionRef={editDescriptionRef}
+      editEpisodeRef={editEpisodeRef}
+      editUrlRef={editOriginalLinkRef}
+      editMaterialsRef={editMaterialsRef}
+      editMode={edit}
+      updateVideo={updateVideo}
+      editModeTrue={editModeTrue}
+
       onButtonClick={createVideo}
+      onEditClick={updateVideo}
       onDeleteClick={deleteVideo}
     />
   );
