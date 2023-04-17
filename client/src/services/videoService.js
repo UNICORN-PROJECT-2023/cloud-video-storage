@@ -35,6 +35,7 @@ export default class VideoService {
 
     createVideo = async (name, description, episode, originalLink, materials = []) => {
         const response = await this.apiService.post('/video', { name, description, episode, originalLink, materials});
+        console.log(await response.json());
         console.log(response);
         if (response.status === 200 || response.status === 201 || response.status === 202) {
             const data = await response.json();

@@ -19,10 +19,20 @@ function HomeScreen() {
       fetchVideos();
     }, []);
 
+    function getVideoIdFromUrl(url) {
+      const regex = /[?&]v=([^&]+)/;
+      if (url && typeof url === 'string') {
+        const match = url.match(regex);
+        return match ? match[1] : null;
+      }
+      return null;
+    }
+
     return(
         <HomePage
         description="This is a video sharing platform where you can share your videos with the world."
         allVideos={videos}
+        getVideoIdFromUrl={getVideoIdFromUrl}
         />
     );
 }

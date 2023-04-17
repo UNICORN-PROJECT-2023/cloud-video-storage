@@ -34,26 +34,35 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledVideoList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  grid-gap: 1rem;
-  padding: 1rem 2rem;
-  margin: 0 auto;
-  overflow: hidden;
-
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+grid-gap: 1rem;
+padding: 1rem 2rem;
+margin: 0 auto;
+overflow: hidden;
   .gridItem {
     border-radius: 1rem;
-    color: black;
     padding: 1rem;
-    background-color: white;
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
+    background-color: white;
+    .iframeWrapper {
+        position: relative;
+        padding-top: 56.25%; /* 16:9 aspect ratio */
+      }
+  
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
   }
   .gridItem:hover {
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 20%);
     cursor: pointer;
   }
   .description {
-    color: #28282B;
     font-weight: 1000;
   }
   h3 {
@@ -70,19 +79,29 @@ function HomePage(props) {
             </StyledWrapper>
             <StyledVideoList>
                 {props.allVideos.map((video) => (
+                    <Link to={`/video/${video.id}`} style={{textDecoration: 'none'}} key={video.id}>
                         <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             className="gridItem"
-                            key={video.id}
+                            style={{color: 'black'}}
                         >
+                            <div className="iframeWrapper">
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
+                                    title="YouTube video player"
+                                    frameBorder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                />
+                            </div>
                             <h3>{video.name}</h3>
-                            <iframe width="420" height="236" src="https://www.youtube.com/embed/SiY6QwTJyoI" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
                             <p className="description">{video.description}</p>
                             <p>Create by: {video.owner.name}</p>
                             <span>created at: {video.createdAt}</span>
                             <p>updated at: {video.updatedAt}</p>
                         </motion.div>
+                    </Link>
                 ))}
             </StyledVideoList>
         </>

@@ -21,11 +21,20 @@ export default function VideoDetailScreen() {
         }
         fetchVideo();
     }, []);
+
+    function getVideoIdFromUrl(url) {
+        const regex = /[?&]v=([^&]+)/;
+        if (url && typeof url === 'string') {
+          const match = url.match(regex);
+          return match ? match[1] : null;
+        }
+        return null;
+      }
     
     return(
         <VideoDetailPage
         videosData={video}
-        youtubeUrl="https://www.youtube.com/embed/SiY6QwTJyoI"
+        getVideoIdFromUrl={getVideoIdFromUrl}
         />
     );
 }

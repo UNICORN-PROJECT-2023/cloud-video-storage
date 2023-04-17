@@ -42,6 +42,15 @@ function ProfileScreen() {
     fetchUserVideos();
   }, []);
 
+  function getVideoIdFromUrl(url) {
+    const regex = /[?&]v=([^&]+)/;
+    if (url && typeof url === 'string') {
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+    return null;
+  }
+
   const nameRef = useRef();
   const episodeRef = useRef();
   const descriptionRef = useRef();
@@ -80,6 +89,7 @@ function ProfileScreen() {
       email={data.email}
       link="/test"
 
+      getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}
       nameRef={nameRef}
       descriptionRef={descriptionRef}

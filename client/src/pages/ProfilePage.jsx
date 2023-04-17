@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const StyledVideoList = styled.div`
   display: grid;
@@ -11,10 +12,21 @@ const StyledVideoList = styled.div`
 
   .gridItem {
     border-radius: 1rem;
-    color: black;
     padding: 1rem;
-    background-color: white;
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
+    color: black;
+    .iframeWrapper {
+        position: relative;
+        padding-top: 56.25%; /* 16:9 aspect ratio */
+      }
+  
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
   }
   .gridItem:hover {
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 20%);
@@ -95,49 +107,60 @@ button {
 `;
 function ProfilePage(props) {
 
-    if (props.loading) {
-        return (
-            <StyledWrapper>
-                <h1>loading...</h1>
-            </StyledWrapper>
-        )
-    }
-
-    // tohle se nespusti pokud je loading true
+  if (props.loading) {
     return (
-        <>
-            <StyledWrapper>
-                <h1>{props.title}</h1>
-                    USERNAME : {props.username}<br />
-                    EMAIL : {props.email}<br />
-            </StyledWrapper >
-            
-            <StyledForm>
-                <h1>Create Video</h1>
-                <input type="text" ref={props.nameRef} placeholder="Title" />
-                <textarea type="text" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
-                <input type="text" ref={props.episodeRef} placeholder="Episode" />
-                <input type="text" ref={props.urlRef} placeholder="Url" />
-                <input type="text" ref={props.materialsRef} placeholder="Materials" />
-                <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
-            </StyledForm>
-            <StyledVideoList>
-                {props.dataForUserVideos.map((video) => (
-                    <div
-                        className="gridItem"
-                        key={video.id}
-                    >
-                        <h3>{video.name}</h3>
-                        <p>{video.description}</p>
-                        <a href={video.originalLink}>{video.originalLink}</a>
-                        <p>Owner: {video.owner.name}</p>
-                        <span>created at: {video.createdAt}</span>
-                        <p>updated at: {video.updatedAt}</p>
-                        <motion.button whileHover={{ scale: 0.9 }} onClick={ () => props.onDeleteClick(video.id)}>DELETE</motion.button>
-                    </div>
-                ))}
-            </StyledVideoList>
-        </>
+      <StyledWrapper>
+        <h1>loading...</h1>
+      </StyledWrapper>
     )
+  }
+
+  // tohle se nespusti pokud je loading true
+  return (
+    <>
+      <StyledWrapper>
+        <h1>{props.title}</h1>
+        USERNAME : {props.username}<br />
+        EMAIL : {props.email}<br />
+      </StyledWrapper >
+
+      <StyledForm>
+        <h1>Create Video</h1>
+        <input type="text" ref={props.nameRef} placeholder="Title" />
+        <textarea type="text" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
+        <input type="text" ref={props.episodeRef} placeholder="Episode" />
+        <input type="text" ref={props.urlRef} placeholder="Url" />
+        <input type="text" ref={props.materialsRef} placeholder="Materials" />
+        <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
+      </StyledForm>
+      <StyledVideoList>
+        {props.dataForUserVideos.map((video) => (
+          <Link to={`/video/${video.id}`} style={{ textDecoration: 'none' }} key={video.id}>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="gridItem"
+            >
+              <div className="iframeWrapper">
+                <iframe
+                  src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <h3>{video.name}</h3>
+              <p>{video.description}</p>
+              <p>Owner: {video.owner.name}</p>
+              <span>created at: {video.createdAt}</span>
+              <p>updated at: {video.updatedAt}</p>
+              <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteClick(video.id)}>DELETE</motion.button>
+            </motion.div>
+          </Link>
+        ))}
+      </StyledVideoList>
+    </>
+  )
 }
 export default ProfilePage;
