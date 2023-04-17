@@ -96,7 +96,6 @@ function HomePage(props) {
                                 />
                             </div>
                             <h3>{video.name}</h3>
-                            <p className="description">{video.description}</p>
                             <p>Create by: {video.owner.name}</p>
                             <span>created at: {video.createdAt}</span>
                             <p>updated at: {video.updatedAt}</p>

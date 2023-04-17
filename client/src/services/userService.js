@@ -12,7 +12,8 @@ export default class UserService {
         localStorage.setItem('token', data.body.token);
         return data;
       }
-      throw new Error("Failed to login");
+      const error = await response.json();
+      throw new Error(error.message);
     }
     
     register = async (email, username, password) => {

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function LoginScreen() {
   const userService = new UserService();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -17,7 +18,7 @@ function LoginScreen() {
       window.location.reload();
       console.log(response)
     } catch (error) {
-      console.log(error);
+      setError(error)
     }
   }
 
@@ -28,6 +29,7 @@ function LoginScreen() {
       onButtonClick={loginUser}
       emailInput = {emailRef}
       passwordInput = {passwordRef}
+      error={error}
     />
   );
 }

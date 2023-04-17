@@ -41,7 +41,8 @@ export default class VideoService {
             const data = await response.json();
             return data;
         }
-        throw new Error("Failed to create video");
+        const error = await response.json();
+        throw new Error(error.message);
     }
 
     updateVideo = async (id, name, description, episode, originalLink, materials = []) => {

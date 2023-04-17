@@ -8,6 +8,7 @@ function ProfileScreen() {
   const videoService = new VideoService();
   const [loading, setLoading] = useState(false);
   const [userVideos, setUserVideos] = useState([]);
+  const [error, setError] = useState(null);
   
   // TODO přejmenovat na user
   const [data, setData] = useState({
@@ -32,17 +33,18 @@ function ProfileScreen() {
   }, []);
 
   useEffect(() => {
-    async function fetchUserVideos() {
-      try {
-        const userVideos = await videoService.getUserVideos();
-        setUserVideos(userVideos.body);
-        console.log(userVideos)
-      } catch (error) {
-        console.log(error);
-      }
-    }
     fetchUserVideos();
   }, []);
+
+  async function fetchUserVideos() {
+    try {
+      const userVideos = await videoService.getUserVideos();
+      setUserVideos(userVideos.body);
+      console.log(userVideos)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
@@ -75,8 +77,9 @@ function ProfileScreen() {
         [materialsRef.current.value]
       );
       console.log(response.body);
+      await fetchUserVideos();
     } catch (error) {
-      console.log(error);
+      setError(error)
     }
   }
 
@@ -90,16 +93,8 @@ function ProfileScreen() {
         editOriginalLinkRef.current.value,
         [editMaterialsRef.current.value]
       );
-      // on success
+      await fetchUserVideos();
       onCancelClick();
-      updateById({
-        videoId: videoId,
-        name: editNameRef.current.value,
-        description: editDescriptionRef.current.value,
-        episode: editEpisodeRef.current.value,
-        originalLink: editOriginalLinkRef.current.value,
-        materials: editMaterialsRef.current.value
-      }, videoId);
     } catch (error) {
       console.log(error);
     }
@@ -127,28 +122,11 @@ function ProfileScreen() {
     );
   }
 
-  function updateById(video, id) {
-    setUserVideos((userVideos) => 
-      userVideos.map((tempVideo) => {
-        if (tempVideo.id === id) {
-          tempVideo.name = video.name;
-          tempVideo.description = video.description;
-          tempVideo.episode = video.episode;
-          tempVideo.originalLink = video.originalLink;
-          tempVideo.materials = video.materials;
-          return tempVideo;
-        }
-
-        return tempVideo;
-      })
-    );
-  }
-
-
   async function deleteVideo(videoId) {
     try {
       const response = await videoService.deleteVideo(videoId);
       console.log(response);
+      await fetchUserVideos();
     } catch (error) {
       console.log(error);
     }
@@ -161,6 +139,8 @@ function ProfileScreen() {
       username={data.username}
       email={data.email}
       link="/test"
+
+      error={error}
     
       getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}
