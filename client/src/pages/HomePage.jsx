@@ -80,6 +80,7 @@ overflow: hidden;
     font-weight: bold;
     cursor: pointer;
     background-color: #3c6ca8;
+    width: 70%;
   }
 `;
 

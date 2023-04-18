@@ -44,9 +44,10 @@ const StyledVideoList = styled.div`
     background-color: red;
     width: 48%;
     margin: 0.2rem;
+    
   }
   .editButton {
-    background-color: orange
+    background-color: #3c6ca8;
   }
 `;
 const StyledWrapper = styled.div`
@@ -73,7 +74,7 @@ font-size: 1.5rem;
 margin: 2rem auto 4rem;
 border-radius: 1rem;
 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-
+background-color: white;
 @media (max-width: 768px) {
   margin: 0 1rem;
 }
@@ -81,21 +82,21 @@ box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 input, textarea {
   padding: 1rem;
   margin-bottom: 1rem;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 5px;
   font-size: 1rem;
   width: 65%;
 
   &:focus {
     outline: none;
-    border: 2px solid #b78fd6;
+    border: 2px solid cornflowerblue;
   }
 }
 
 h1 {
   padding: 1rem;
   font-weight: 1000;
-  color: #eae164;
+  color: cornflowerblue;
 }
 
 button {
@@ -202,8 +203,8 @@ function ProfilePage(props) {
                 <input type="text" ref={props.editEpisodeRef} defaultValue={video.episode} placeholder="Episode" />
                 <input type="text" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
                 <input type="text" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
-                <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.updateVideo(video.id)}>Confirm</motion.button>
-                <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onCancelClick(video.id)}>Cancel</motion.button>
+                <motion.button className="editButton" style={{backgroundColor: 'green'}} whileHover={{ scale: 0.9 }} onClick={() => props.updateVideo(video.id)}>Confirm</motion.button>
+                <motion.button style={{backgroundColor: 'red'}} whileHover={{ scale: 0.9 }} onClick={() => props.onCancelClick(video.id)}>Cancel</motion.button>
               </StyledEditForm>
             </>
           ) : (
@@ -220,13 +221,14 @@ function ProfilePage(props) {
               <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <div>
                   <h3>{video.name}</h3>
-                  <p>Owner: {video.owner.name}</p>
+                  <p>{video.owner.name}</p>
                   <span>created at: {video.createdAt}</span>
                   <p>updated at: {video.updatedAt}</p>
                 </div>
               </Link>
-              <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteClick(video.id)}>DELETE</motion.button>
               <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.editModeTrue(video.id)}>Edit</motion.button>
+
+              <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteClick(video.id)}>DELETE</motion.button>
             </>
           )}
           </div>
@@ -259,7 +261,7 @@ function ProfilePage(props) {
                   <p>updated at: {video.updatedAt}</p>
                 </div>
               </Link>
-              <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
+              <motion.button style={{width: '70%'}} whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
             </>
 
           </div>

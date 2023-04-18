@@ -92,7 +92,7 @@ function ProfileScreen() {
         originalLinkRef.current.value,
         [materialsRef.current.value]
       );
-      console.log(response.body);
+      console.log(fetchUserVideos());
       await fetchUserVideos();
     } catch (error) {
       setError(error)
