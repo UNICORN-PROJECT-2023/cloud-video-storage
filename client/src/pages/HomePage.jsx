@@ -7,7 +7,7 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 54svh;
+    min-height: 45svh;
     border-radius: 1rem;
     backdrop-filter: blur(50px);
 
@@ -72,15 +72,15 @@ overflow: hidden;
   button {
     color: #fff;
     border: none;
-    padding: 1rem 2rem;
-    margin: 0.2rem;
-    border-radius: 10rem;
+    padding: 0.5rem;
+    margin: 0.1rem;
+    border-radius: 5px;
     font-size: 1rem;
     letter-spacing: 1px;
     font-weight: bold;
     cursor: pointer;
     background-color: #3c6ca8;
-    width: 70%;
+    width: 60%;
   }
 `;
 
@@ -93,7 +93,6 @@ function HomePage(props) {
             </StyledWrapper>
             <StyledVideoList>
                 {props.allVideos.map((video) => (
-
                     <div
                         
                         className="gridItem"

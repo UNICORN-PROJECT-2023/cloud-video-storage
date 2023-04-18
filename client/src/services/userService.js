@@ -38,4 +38,14 @@ export default class UserService {
       }
       throw new Error("Failed to get current user");
     }
+
+    editUser = async (username, email, password) => {
+      const response = await this.apiService.put('/user/me', { username, email, password });
+      if(response.status === 200 || response.status === 201 || response.status === 202) {
+        const data = await response.json();
+        return data;
+      }
+      const error = await response.json();
+      throw new Error(error.message);
+    }
 }

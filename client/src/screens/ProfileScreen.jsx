@@ -10,6 +10,7 @@ function ProfileScreen() {
   const [userVideos, setUserVideos] = useState([]);
   const [videoList, setVideoList] = useState([]);
   const [error, setError] = useState(null);
+  const [userEdit, setUserEdit] = useState(false);
   
   // TODO přejmenovat na user
   const [data, setData] = useState({
@@ -85,13 +86,18 @@ function ProfileScreen() {
 
   async function createVideo() {
     try {
-      const response = await videoService.createVideo(
+      videoService.createVideo(
         nameRef.current.value,
         descriptionRef.current.value,
         Number(episodeRef.current.value),
         originalLinkRef.current.value,
         [materialsRef.current.value]
       );
+      nameRef.current.value = "";
+      descriptionRef.current.value = "";
+      episodeRef.current.value = "";
+      originalLinkRef.current.value = "";
+      materialsRef.current.value = "";
       console.log(fetchUserVideos());
       await fetchUserVideos();
     } catch (error) {
@@ -138,6 +144,31 @@ function ProfileScreen() {
     );
   }
 
+  const editUserNameRef = useRef();
+  const editUserEmailRef = useRef();
+  const editUserPasswordRef = useRef();
+
+  async function editProfile() {
+    try {
+      await userService.editUser(
+        editUserNameRef.current.value,
+        editUserEmailRef.current.value,
+        editUserPasswordRef.current.value
+      );
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function userEditMode () {
+    setUserEdit(true);
+  }
+
+  function onCancelUserClick() {
+    setUserEdit(false);
+  } 
+
   async function deleteVideo(videoId) {
     try {
       const response = await videoService.deleteVideo(videoId);
@@ -174,15 +205,25 @@ function ProfileScreen() {
       episodeRef={episodeRef}
       urlRef={originalLinkRef}
       materialsRef={materialsRef}
+
+      editUserNameRef={editUserNameRef}
+      editUserEmailRef={editUserEmailRef}
+      editUserPasswordRef={editUserPasswordRef}
+      editUser = {editProfile}
+      userEdit = {userEdit}
+      userEditMode = {userEditMode}
+      onCancelUserClick = {onCancelUserClick}
+
       editNameRef={editNameRef}
       editDescriptionRef={editDescriptionRef}
       editEpisodeRef={editEpisodeRef}
       editUrlRef={editOriginalLinkRef}
       editMaterialsRef={editMaterialsRef}
+
       updateVideo={updateVideo}
       editModeTrue={editMode}
       onCancelClick={onCancelClick}
-      onButtonClick={createVideo}
+      onCreateClick={createVideo}
       onEditClick={updateVideo}
       onDeleteClick={deleteVideo}
       onDeleteFromList={deleteVideoFromList}

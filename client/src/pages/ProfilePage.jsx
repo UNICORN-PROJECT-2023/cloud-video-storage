@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const StyledVideoList = styled.div`
@@ -36,7 +36,7 @@ const StyledVideoList = styled.div`
     color: #fff;
     border: none;
     padding: 1rem 2rem;
-    border-radius: 10rem;
+    border-radius: 5px;
     font-size: 1rem;
     letter-spacing: 1px;
     font-weight: bold;
@@ -61,6 +61,32 @@ const StyledWrapper = styled.div`
     h1 {
         padding: 1rem;
         font-weight: 1000;
+    }
+    button {
+      color: #fff;
+      border: none;
+      padding: 1rem 2rem;
+      margin: 0.2rem;
+      border-radius: 5px;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: orange;
+      min-width: 200px;
+    }
+    input{
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 2px solid black;
+      border-radius: 5px;
+      font-size: 1rem;
+      min-width: 250px;
+    
+      &:focus {
+        outline: none;
+        border: 2px solid #b78fd6;
+      }
     }
 `;
 const StyledForm = styled.div`
@@ -150,7 +176,7 @@ button {
   border: none;
   padding: 1rem 2rem;
   margin: 0.2rem;
-  border-radius: 10rem;
+  border-radius: 5px;
   font-size: 1rem;
   letter-spacing: 1px;
   font-weight: bold;
@@ -171,12 +197,24 @@ function ProfilePage(props) {
   // tohle se nespusti pokud je loading true
   return (
     <>
-      <StyledWrapper>
-        <h1>{props.title}</h1>
-        USERNAME : {props.username}<br />
-        EMAIL : {props.email}<br />
-      </StyledWrapper >
-
+      {props.userEdit ? (
+        <StyledWrapper>
+          <h1>Edit user data</h1>
+          <input type="text" ref={props.editUserNameRef} defaultValue={props.username} placeholder='Username' />
+          <input type="text" ref={props.editUserEmailRef} defaultValue={props.email} placeholder='Email' />
+          <input type="password" ref={props.editUserPasswordRef} placeholder=' New password' />
+          <div>
+            <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.editUser() && props.onCancelUserClick}>Confirm</motion.button>
+            <motion.button whileHover={{ scale: 0.9 }} style={{ backgroundColor: '#3c6cb9' }} onClick={props.onCancelUserClick}>Cancel</motion.button>
+          </div>
+        </StyledWrapper >
+      ) : (
+        <StyledWrapper>
+          <p>USERNAME : {props.username}</p>
+          <p>EMAIL : {props.email}</p>
+          <motion.button whileHover={{ scale: 0.9 }} onClick={props.userEditMode}>Edit user data</motion.button>
+        </StyledWrapper >
+      )}
       <StyledForm>
         <h1>Create Video</h1>
         <input type="text" ref={props.nameRef} placeholder="Title" />
@@ -185,7 +223,7 @@ function ProfilePage(props) {
         <input type="text" ref={props.urlRef} placeholder="Url" />
         <input type="text" ref={props.materialsRef} placeholder="Materials" />
         {props.error && <p style={{ color: '#D2122E', fontWeight: '1000' }}>{String(props.error)}</p>}
-        <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
+        <motion.button whileHover={{ scale: 0.9 }} onClick={props.onCreateClick}>Create</motion.button>
       </StyledForm>
 
       <h1 style={{ textAlign: 'center' }}>My Videos</h1>
@@ -203,8 +241,8 @@ function ProfilePage(props) {
                 <input type="text" ref={props.editEpisodeRef} defaultValue={video.episode} placeholder="Episode" />
                 <input type="text" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
                 <input type="text" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
-                <motion.button className="editButton" style={{backgroundColor: 'green'}} whileHover={{ scale: 0.9 }} onClick={() => props.updateVideo(video.id)}>Confirm</motion.button>
-                <motion.button style={{backgroundColor: 'red'}} whileHover={{ scale: 0.9 }} onClick={() => props.onCancelClick(video.id)}>Cancel</motion.button>
+                <motion.button className="editButton" style={{ backgroundColor: 'green' }} whileHover={{ scale: 0.9 }} onClick={() => props.updateVideo(video.id)}>Confirm</motion.button>
+                <motion.button style={{ backgroundColor: 'red' }} whileHover={{ scale: 0.9 }} onClick={() => props.onCancelClick(video.id)}>Cancel</motion.button>
               </StyledEditForm>
             </>
           ) : (
@@ -261,7 +299,7 @@ function ProfilePage(props) {
                   <p>updated at: {video.updatedAt}</p>
                 </div>
               </Link>
-              <motion.button style={{width: '70%'}} whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
+              <motion.button style={{ width: '70%' }} whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
             </>
 
           </div>
