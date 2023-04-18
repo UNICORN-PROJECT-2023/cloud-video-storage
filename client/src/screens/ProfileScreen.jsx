@@ -8,6 +8,7 @@ function ProfileScreen() {
   const videoService = new VideoService();
   const [loading, setLoading] = useState(false);
   const [userVideos, setUserVideos] = useState([]);
+  const [videoList, setVideoList] = useState([]);
   const [error, setError] = useState(null);
   
   // TODO přejmenovat na user
@@ -36,6 +37,10 @@ function ProfileScreen() {
     fetchUserVideos();
   }, []);
 
+  useEffect(() => {
+    fetchVideoList();
+  }, []);
+
   async function fetchUserVideos() {
     try {
       const userVideos = await videoService.getUserVideos();
@@ -45,6 +50,17 @@ function ProfileScreen() {
       console.log(error);
     }
   }
+
+  async function fetchVideoList() {
+    try {
+      const userVideoList = await videoService.getVideoList();
+      setVideoList(userVideoList.body);
+      console.log(userVideoList);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+ 
 
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
@@ -132,6 +148,16 @@ function ProfileScreen() {
     }
   }
 
+  async function deleteVideoFromList(videoId) {
+    try {
+      const response = await videoService.deleteVideoList(videoId);
+      console.log(response);
+      await fetchVideoList();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <ProfilePage
       title="Profile page"
@@ -139,17 +165,15 @@ function ProfileScreen() {
       username={data.username}
       email={data.email}
       link="/test"
-
       error={error}
-    
       getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}
+      dataForVideoList={videoList}
       nameRef={nameRef}
       descriptionRef={descriptionRef}
       episodeRef={episodeRef}
       urlRef={originalLinkRef}
       materialsRef={materialsRef}
-
       editNameRef={editNameRef}
       editDescriptionRef={editDescriptionRef}
       editEpisodeRef={editEpisodeRef}
@@ -161,6 +185,7 @@ function ProfileScreen() {
       onButtonClick={createVideo}
       onEditClick={updateVideo}
       onDeleteClick={deleteVideo}
+      onDeleteFromList={deleteVideoFromList}
     />
   );
 }

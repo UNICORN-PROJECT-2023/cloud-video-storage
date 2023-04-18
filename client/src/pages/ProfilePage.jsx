@@ -187,9 +187,9 @@ function ProfilePage(props) {
         <motion.button whileHover={{ scale: 0.9 }} onClick={props.onButtonClick}>Create</motion.button>
       </StyledForm>
 
-      <h1 style={{textAlign: 'center'}}>My Videos</h1>
+      <h1 style={{ textAlign: 'center' }}>My Videos</h1>
       <StyledVideoList >
-        
+
         {props.dataForUserVideos?.map((video) => (
           <div
             className="gridItem"
@@ -229,6 +229,39 @@ function ProfilePage(props) {
               <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.editModeTrue(video.id)}>Edit</motion.button>
             </>
           )}
+          </div>
+        ))}
+      </StyledVideoList>
+
+      <h1 style={{ textAlign: 'center' }}>My Video List</h1>
+      <StyledVideoList >
+
+        {props.dataForVideoList?.map((video) => (
+          <div
+            className="gridItem"
+            key={video.id}
+          >
+            <>
+              <div className="iframeWrapper">
+                <iframe
+                  src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                <div>
+                  <h3>{video.name}</h3>
+                  <p>Owner: {video.owner.name}</p>
+                  <span>created at: {video.createdAt}</span>
+                  <p>updated at: {video.updatedAt}</p>
+                </div>
+              </Link>
+              <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
+            </>
+
           </div>
         ))}
       </StyledVideoList>

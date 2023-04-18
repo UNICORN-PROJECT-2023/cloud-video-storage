@@ -62,4 +62,29 @@ export default class VideoService {
         }
         throw new Error("Failed to delete video");
     }
+
+    getVideoList = async () => {
+        const response = await this.apiService.get(`/video/list/all`)
+        if (response.status === 200 || response.status === 201 || response.status === 202) {
+            const data = await response.json();
+            return data;
+        } 
+        throw new Error("Failed to get video list");
+    }
+
+    addVideoList = async (id) => {
+        const response = await this.apiService.post(`/video/list/${id}`);
+        if (response.status === 200 || response.status === 201 || response.status === 202){
+            const data = await response.json();
+            return data;
+        }
+    }
+
+    deleteVideoList = async (id) => {
+        const response = await this.apiService.delete(`/video/list/${id}`);
+        if (response.status === 200 || response.status === 201 || response.status === 202){
+            const data = await response.json();
+            return data;
+        }
+    };
 }
