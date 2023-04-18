@@ -11,6 +11,7 @@ function ProfileScreen() {
   const [videoList, setVideoList] = useState([]);
   const [error, setError] = useState(null);
   const [userEdit, setUserEdit] = useState(false);
+  const [type, setType] = useState("password");
   
   // TODO přejmenovat na user
   const [data, setData] = useState({
@@ -155,7 +156,6 @@ function ProfileScreen() {
         editUserEmailRef.current.value,
         editUserPasswordRef.current.value
       );
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -168,6 +168,14 @@ function ProfileScreen() {
   function onCancelUserClick() {
     setUserEdit(false);
   } 
+
+  function showPassword() {
+    if (type === "password") {
+      setType("text");
+    } else {
+      setType("password");
+    }
+  }
 
   async function deleteVideo(videoId) {
     try {
@@ -209,6 +217,8 @@ function ProfileScreen() {
       editUserNameRef={editUserNameRef}
       editUserEmailRef={editUserEmailRef}
       editUserPasswordRef={editUserPasswordRef}
+      type = {type}
+      showPassword = {showPassword}
       editUser = {editProfile}
       userEdit = {userEdit}
       userEditMode = {userEditMode}

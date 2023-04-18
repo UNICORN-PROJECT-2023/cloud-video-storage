@@ -184,6 +184,45 @@ button {
   background-color: #3c6ca8;
 }
 `;
+const StyledEditUserForm = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+max-width: 700px;
+padding: 1rem;
+font-size: 1.5rem;
+margin: 2rem auto 4rem;
+background-color: white;
+border-radius: 1rem;
+color: black;
+
+input{
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 65%;
+
+  &:focus {
+    outline: none;
+    border: 2px solid #3c6ca8;
+  }
+}
+
+button {
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0.2rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  font-weight: bold;
+  cursor: pointer;
+}
+`;
 function ProfilePage(props) {
 
   if (props.loading) {
@@ -197,24 +236,27 @@ function ProfilePage(props) {
   // tohle se nespusti pokud je loading true
   return (
     <>
-      {props.userEdit ? (
-        <StyledWrapper>
-          <h1>Edit user data</h1>
-          <input type="text" ref={props.editUserNameRef} defaultValue={props.username} placeholder='Username' />
-          <input type="text" ref={props.editUserEmailRef} defaultValue={props.email} placeholder='Email' />
-          <input type="password" ref={props.editUserPasswordRef} placeholder=' New password' />
-          <div>
-            <motion.button whileHover={{ scale: 0.9 }} onClick={() => props.editUser() && props.onCancelUserClick}>Confirm</motion.button>
-            <motion.button whileHover={{ scale: 0.9 }} style={{ backgroundColor: '#3c6cb9' }} onClick={props.onCancelUserClick}>Cancel</motion.button>
-          </div>
-        </StyledWrapper >
-      ) : (
-        <StyledWrapper>
-          <p>USERNAME : {props.username}</p>
-          <p>EMAIL : {props.email}</p>
-          <motion.button whileHover={{ scale: 0.9 }} onClick={props.userEditMode}>Edit user data</motion.button>
-        </StyledWrapper >
-      )}
+      <StyledEditUserForm>
+        {props.userEdit ? (
+          <>
+            <h1>Edit user data</h1>
+            <input type="text" ref={props.editUserNameRef} defaultValue={props.username} placeholder='Username' />
+            <input type="text" ref={props.editUserEmailRef} defaultValue={props.email} placeholder='Email' />
+            <input type={props.type} ref={props.editUserPasswordRef} placeholder=' New password' />
+            <motion.button style={{ padding: '0.2rem', backgroundColor: 'orange' }} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => props.showPassword()}>show password</motion.button>
+            <div>
+              <motion.button whileHover={{ scale: 0.9 }} style={{ backgroundColor: 'green' }} onClick={() => props.editUser() && props.onCancelUserClick}>Confirm</motion.button>
+              <motion.button whileHover={{ scale: 0.9 }} style={{ backgroundColor: '#3c6cb9' }} onClick={props.onCancelUserClick}>Cancel</motion.button>
+            </div>
+            </>
+        ) : (
+          <>
+            <p>USERNAME : {props.username}</p>
+            <p>EMAIL : {props.email}</p>
+            <motion.button whileHover={{ scale: 0.9 }} style={{backgroundColor: 'orange'}} onClick={props.userEditMode}>Edit user data</motion.button>
+            </>
+        )}
+      </StyledEditUserForm>
       <StyledForm>
         <h1>Create Video</h1>
         <input type="text" ref={props.nameRef} placeholder="Title" />
