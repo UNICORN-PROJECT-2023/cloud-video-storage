@@ -12,12 +12,10 @@ export class VideoInDto {
   @IsString()
   @MinLength(1)
   @MaxLength(2000)
-  @IsOptional()
   @ApiProperty({required: false})
   description: string;
 
   @IsNumber()
-  @IsOptional()
   @ApiProperty({required: false})
   episode: number;
 
@@ -30,7 +28,6 @@ export class VideoInDto {
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(0)
-  @IsOptional()
   @ApiProperty({required: true})
   materials: Array<string>;
   
