@@ -88,6 +88,11 @@ const StyledWrapper = styled.div`
         border: 2px solid #b78fd6;
       }
     }
+    ::-ms-reveal {
+      border: 1px solid transparent;
+      border-radius: 50%;
+      box-shadow: 0 0 3px currentColor;
+  }
 `;
 const StyledForm = styled.div`
 display: flex;
