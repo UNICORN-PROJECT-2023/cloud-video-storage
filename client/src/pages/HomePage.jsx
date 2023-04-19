@@ -73,20 +73,14 @@ function HomePage(props) {
                     <a className="btn btn-1" href='#videos'>Explore</a>
                 </StyledWrapper>
             </div>
-
-            <VideoGrid >
-
+            <VideoGrid>
                 {props.allVideos.map((video) => {
                     const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === props?.user?.id);
-                    console.log(isSubscribed);
                     return (
-
                         <div
                             className="gridItem"
                             style={{ color: 'black' }}
                             key={video.id}
-                            id='videos'
-
                         >
                             <div className="iframeWrapper" >
                                 <iframe
