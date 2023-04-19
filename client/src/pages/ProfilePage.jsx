@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import DateUtils from '../utils/DateUtils';
 
 const StyledVideoList = styled.div`
   display: grid;
@@ -307,8 +308,8 @@ function ProfilePage(props) {
                 <div>
                   <h3>{video.name}</h3>
                   <p>{video.owner.name}</p>
-                  <span>created at: {video.createdAt}</span>
-                  <p>updated at: {video.updatedAt}</p>
+                  <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
+                  <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
                 </div>
               </Link>
               <motion.button className="editButton" whileHover={{ scale: 0.9 }} onClick={() => props.editModeTrue(video.id)}>Edit</motion.button>
@@ -342,8 +343,8 @@ function ProfilePage(props) {
                 <div>
                   <h3>{video.name}</h3>
                   <p>Owner: {video.owner.name}</p>
-                  <span>created at: {video.createdAt}</span>
-                  <p>updated at: {video.updatedAt}</p>
+                  <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
+                  <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
                 </div>
               </Link>
               <motion.button style={{ width: '70%' }} whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>

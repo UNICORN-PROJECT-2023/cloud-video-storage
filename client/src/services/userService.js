@@ -41,11 +41,10 @@ export default class UserService {
 
     editUser = async (username, email, password) => {
       const response = await this.apiService.put('/user/me', { username, email, password });
-      console.log(await response.json());
       if(response.status === 200 || response.status === 201 || response.status === 202) {
-        const data = await response.json();
-        return data;
+        return;
       }
+      
       const error = await response.json();
       throw new Error(error.message);
     }

@@ -155,6 +155,7 @@ function ProfileScreen() {
         editUserEmailRef.current.value,
         editUserPasswordRef.current.value
       );
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

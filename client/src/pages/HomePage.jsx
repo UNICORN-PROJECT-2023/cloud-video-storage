@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import DateUtils from '../utils/DateUtils';
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -92,7 +93,10 @@ function HomePage(props) {
                 <p>{props.description}</p>
             </StyledWrapper>
             <StyledVideoList>
-                {props.allVideos.map((video) => (
+                {props.allVideos.map((video) => {
+                    const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === props?.user?.id);
+                    console.log(isSubscribed);
+                    return (
 
                     <div
                         className="gridItem"
@@ -112,17 +116,20 @@ function HomePage(props) {
                             <div>
                                 <h3>{video.name}</h3>
                                 <p>Owner: {video.owner.name}</p>
-                                <span>created at: {video.createdAt}</span>
-                                <p>updated at: {video.updatedAt}</p>
+                                <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
+                                <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
 
                             </div>
                         </Link>
 
-                        {props.isLoggedIn() &&
-                            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => props.addToList(video.id)}>Add to list</motion.button>
+                        {(props.isLoggedIn()) ?
+                            isSubscribed 
+                            ?   <motion.button style={{ width: '70%', background:"red" }} whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
+                            :   <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => props.addToList(video.id)}>{"Add to list" }</motion.button>
+                         : null   
                         }
                     </div>
-                ))}
+                )})}
             </StyledVideoList>
         </>
     );

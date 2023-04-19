@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DateUtils from "../utils/DateUtils";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -41,8 +42,8 @@ export default function VideoDetailPage(props) {
         <h3>{props.videosData?.name}</h3>
         <p>{props.videosData?.description}</p>
         <p>Owner: {props.videosData?.owner?.name}</p>
-        <span>created at: {props.videosData?.createdAt}</span>
-        <p>updated at: {props.videosData?.updatedAt}</p>
+        <span>Created: {DateUtils.getAgeFromDate(new Date(props.videosData?.createdAt))} ago</span>
+        <p>Updated: {DateUtils.getAgeFromDate(new Date(props.videosData?.createdAt))} ago</p>
       </div>
     </StyledWrapper>
   );
