@@ -117,7 +117,10 @@ function HomePage(props) {
 
                             </div>
                         </Link>
-                        <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} onClick={() => props.addToList(video.id)}>Add to list</motion.button>
+
+                        {props.isLoggedIn() &&
+                            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => props.addToList(video.id)}>Add to list</motion.button>
+                        }
                     </div>
                 ))}
             </StyledVideoList>

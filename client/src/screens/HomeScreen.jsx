@@ -7,6 +7,10 @@ function HomeScreen() {
     const [videos, setVideos] = useState([]);
     const videoService = new VideoService();
   
+    function isLoggedIn() {
+      return localStorage.getItem('token') ? true : false;
+    }
+
     useEffect(() => {
       async function fetchVideos() {
         try {
@@ -43,6 +47,7 @@ function HomeScreen() {
         allVideos={videos}
         addToList={addToList}
         getVideoIdFromUrl={getVideoIdFromUrl}
+        isLoggedIn={isLoggedIn}
         />
     );
 }
