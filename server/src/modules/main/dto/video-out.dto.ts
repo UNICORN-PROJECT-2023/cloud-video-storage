@@ -27,12 +27,18 @@ export class VideoOutDto {
   }
 
   @ApiProperty({required: true})
+  subscribers: Array<{
+    id: number,
+    name: string,
+  }>
+
+  @ApiProperty({required: true})
   createdAt: Date;
 
   @ApiProperty({required: true})
   updatedAt: Date;
   
-  constructor(id: number, name: string, description: string, episode: number, originalLink: string, materials: Array<string>, owner: {id: number, name: string}, createdAt: Date, updatedAt: Date) {
+  constructor(id: number, name: string, description: string, episode: number, originalLink: string, materials: Array<string>, owner: {id: number, name: string}, subscribers: Array<{id: number, name: string}>, createdAt: Date, updatedAt: Date) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -40,6 +46,7 @@ export class VideoOutDto {
     this.originalLink = originalLink;
     this.materials = materials;
     this.owner = owner;
+    this.subscribers = subscribers;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

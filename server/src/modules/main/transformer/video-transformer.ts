@@ -19,6 +19,7 @@ export class videoTransformer {
 
   static entityToDao(videoEntity: VideoEntity): VideoOutDto {
     const owner =  videoEntity.customerVideoEntity.find((customerVideo) => customerVideo.type === VideoType.OWNER);
+    const subscribers =  videoEntity.customerVideoEntity.filter((customerVideo) => customerVideo.type === VideoType.SUBSCRIBER);
 
     const videoDao = new VideoOutDto(
       videoEntity.id,
@@ -31,6 +32,13 @@ export class videoTransformer {
         id: owner?.customerEntity.id,
         name: owner?.customerEntity.username,
       },
+      subscribers.map((subscriber) => {
+        return ({
+          id: subscriber?.customerEntity?.id,
+          name: subscriber?.customerEntity?.username,
+        })
+      }
+        ),
       videoEntity.createdAt,
       videoEntity.updatedAt,
     );
