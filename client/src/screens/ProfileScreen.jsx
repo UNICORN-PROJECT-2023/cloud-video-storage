@@ -198,11 +198,9 @@ function ProfileScreen() {
 
   return (
     <ProfilePage
-      title="Profile page"
       loading={loading}
       username={data.username}
       email={data.email}
-      link="/test"
       error={error}
       getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}

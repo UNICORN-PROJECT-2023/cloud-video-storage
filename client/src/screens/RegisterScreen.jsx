@@ -14,9 +14,9 @@ function RegisterScreen() {
 
   async function registerUser() {
     try {
-      const response = await userService.register(emailRef.current.value, usernameRef.current.value, passwordRef.current.value);
+      await userService.register(emailRef.current.value, usernameRef.current.value, passwordRef.current.value);
       navigate('/profile/');
-      console.log(response)
+      window.location.reload();
     } catch (error) {
       setError(error)
     }
