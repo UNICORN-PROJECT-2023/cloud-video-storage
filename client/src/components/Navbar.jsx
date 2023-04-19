@@ -1,4 +1,4 @@
-import logo from '../images/UniTubeLogo.png';
+import logo from '../images/logo.png';
 import { useEffect, useState } from 'react';
 import UserService from '../services/userService';
 import { Link } from 'react-router-dom';
@@ -59,7 +59,7 @@ function Navbar() {
     ];
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: 'inherit'}}>
+        <nav className="navbar fixed-top navbar-expand-lg" style={{backgroundColor: '#0D1117'}}>
             <Link className="navbar-brand" to="/" >
                 <img src={logo} width="150" height="150" alt="" />
             </Link>

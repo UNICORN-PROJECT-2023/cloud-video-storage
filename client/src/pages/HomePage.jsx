@@ -4,15 +4,18 @@ import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
 
+import Model from '../model/Model';
+import { Canvas } from "@react-three/fiber";
+import { Stage } from "@react-three/drei";
+
 const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 54svh;
+    min-height: 100svh;
     border-radius: 1rem;
-    backdrop-filter: blur(50px);
-
+    
     @media (max-width: 768px) {
         padding: 0 2rem;
     }
@@ -33,14 +36,23 @@ const StyledWrapper = styled.div`
             font-size: 1.5rem;
         }
     }
+
+    span{
+        background: -webkit-linear-gradient(#C81C5D, #813082, #4D3D9A);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 `;
 
 function HomePage(props) {
+
     return (
         <>
             <StyledWrapper>
                 <h1>Welcome to <span style={{ color: "#eae164", fontWeight: '1000' }}>UNITUBE</span></h1>
                 <p>{props.description}</p>
+              
+
             </StyledWrapper>
             <VideoGrid>
                 {props.allVideos.map((video) => {
@@ -48,48 +60,49 @@ function HomePage(props) {
                     console.log(isSubscribed);
                     return (
 
-                    <div
-                        className="gridItem"
-                        style={{ color: 'black' }}
-                        key={video.id}
-                    >
-                        <div className="iframeWrapper">
-                            <iframe
-                                src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="picture-in-picture;"
-                                allowFullScreen
-                            />
-                        </div>
-                        <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                            <div>
-                                <h3>{video.name}</h3>
-                                <p>Owner: {video.owner.name}</p>
-                                <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
-                                <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
-
+                        <div
+                            className="gridItem"
+                            style={{ color: 'black' }}
+                            key={video.id}
+                        >
+                            <div className="iframeWrapper">
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="picture-in-picture;"
+                                    allowFullScreen
+                                />
                             </div>
-                        </Link>
+                            <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                                <div>
+                                    <h3>{video.name}</h3>
+                                    <p>Owner: {video.owner.name}</p>
+                                    <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
+                                    <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
 
-                        {(props.isLoggedIn()) ?
-                            isSubscribed 
-                            ?   <ButtonComponent
-                                    bgColor="red"
-                                    onClick={() => props.onDeleteFromList(video.id)}
-                                    txtColor="white"
-                                    text="Delete from list"
-                                />
-                            :   <ButtonComponent 
-                                    bgColor="#3c6ca8"
-                                    onClick={() => props.addToList(video.id)}
-                                    txtColor="white"
-                                    text="Add to list"
-                                />
-                         : null   
-                        }
-                    </div>
-                )})}
+                                </div>
+                            </Link>
+
+                            {(props.isLoggedIn()) ?
+                                isSubscribed
+                                    ? <ButtonComponent
+                                        bgColor="red"
+                                        onClick={() => props.onDeleteFromList(video.id)}
+                                        txtColor="white"
+                                        text="Delete from list"
+                                    />
+                                    : <ButtonComponent
+                                        bgColor="#3c6ca8"
+                                        onClick={() => props.addToList(video.id)}
+                                        txtColor="white"
+                                        text="Add to list"
+                                    />
+                                : null
+                            }
+                        </div>
+                    )
+                })}
             </VideoGrid>
         </>
     );
