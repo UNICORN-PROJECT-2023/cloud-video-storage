@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
+import VideoGrid from '../components/VideoGrid';
+import ButtonComponent from '../components/ButtonComponent';
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -34,57 +35,6 @@ const StyledWrapper = styled.div`
     }
 `;
 
-const StyledVideoList = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-grid-gap: 1rem;
-padding: 1rem 2rem;
-margin: 0 auto;
-overflow: hidden;
-  .gridItem {
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
-    background-color: white;
-    .iframeWrapper {
-        position: relative;
-        padding-top: 56.25%; /* 16:9 aspect ratio */
-      }
-  
-      iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-  }
-  .gridItem:hover {
-    box-shadow: 0 25px 80px 0 rgb(22 24 28 / 20%);
-    cursor: pointer;
-  }
-  .description {
-    font-weight: 1000;
-  }
-  h3 {
-    font-weight: 1000;
-  }
-
-  button {
-    color: #fff;
-    border: none;
-    padding: 1rem 2rem;
-    margin: 0.2rem;
-    border-radius: 10rem;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #3c6ca8;
-    
-  }
-`;
-
 function HomePage(props) {
     return (
         <>
@@ -92,7 +42,7 @@ function HomePage(props) {
                 <h1>Welcome to <span style={{ color: "#eae164", fontWeight: '1000' }}>UNITUBE</span></h1>
                 <p>{props.description}</p>
             </StyledWrapper>
-            <StyledVideoList>
+            <VideoGrid>
                 {props.allVideos.map((video) => {
                     const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === props?.user?.id);
                     console.log(isSubscribed);
@@ -124,13 +74,23 @@ function HomePage(props) {
 
                         {(props.isLoggedIn()) ?
                             isSubscribed 
-                            ?   <motion.button style={{ width: '70%', background:"red" }} whileHover={{ scale: 0.9 }} onClick={() => props.onDeleteFromList(video.id)}>Remove from List</motion.button>
-                            :   <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => props.addToList(video.id)}>{"Add to list" }</motion.button>
+                            ?   <ButtonComponent
+                                    bgColor="red"
+                                    onClick={() => props.onDeleteFromList(video.id)}
+                                    txtColor="white"
+                                    text="Delete from list"
+                                />
+                            :   <ButtonComponent 
+                                    bgColor="#3c6ca8"
+                                    onClick={() => props.addToList(video.id)}
+                                    txtColor="white"
+                                    text="Add to list"
+                                />
                          : null   
                         }
                     </div>
                 )})}
-            </StyledVideoList>
+            </VideoGrid>
         </>
     );
 }
