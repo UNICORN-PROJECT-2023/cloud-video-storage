@@ -12,13 +12,10 @@ const StyledVideoList = styled.div`
     border-radius: 1rem;
     padding: 1rem;
     box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
-    color: black;
-    background-color: white;
     .iframeWrapper {
         position: relative;
         padding-top: 56.25%; /* 16:9 aspect ratio */
       }
-  
       iframe {
         position: absolute;
         top: 0;

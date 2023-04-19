@@ -7,13 +7,10 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-min-height: 70svh;
+min-height: 100svh;
 max-width: 700px;
 font-size: 1.5rem;
 margin: 0 auto;
-border-radius: 1rem;
-backdrop-filter: blur(50px);
-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
 @media (max-width: 768px) {
   margin: 0 1rem;

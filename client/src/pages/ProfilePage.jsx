@@ -62,7 +62,7 @@ function ProfilePage(props) {
 
   // tohle se nespusti pokud je loading true
   return (
-    <>
+    <div style={{marginTop: '18rem'}}>
       <FormComponent>
         {props.userEdit ? (
           <>
@@ -160,7 +160,7 @@ function ProfilePage(props) {
                   allowFullScreen
                 />
               </div>
-              <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div>
                   <h3>{video.name}</h3>
                   <p>{video.owner.name}</p>
@@ -223,7 +223,7 @@ function ProfilePage(props) {
           </div>
         ))}
       </VideoGrid>
-    </>
+    </div>
   )
 }
 export default ProfilePage;

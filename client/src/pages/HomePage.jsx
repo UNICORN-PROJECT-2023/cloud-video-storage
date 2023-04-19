@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
-import video from '../images/video.mp4'
-
-import Model from '../model/Model';
-import { Canvas } from "@react-three/fiber";
-import { Stage } from "@react-three/drei";
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -41,33 +36,23 @@ const StyledWrapper = styled.div`
     span{
         background: -webkit-linear-gradient(#C81C5D, #813082, #4D3D9A);
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
+        font-weight: 1000;
     }
 
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        flex-wrap: wrap;
-        width: 300px;
-        margin: 0 auto;
-      }
-
     .btn {
-        flex: 1 1 auto;
-        margin: 10px;
-        padding: 20px;
+        margin: 2rem;
+        padding: 1rem 3.5rem;
         text-align: center;
         text-transform: uppercase;
         transition: 0.5s;
         background-size: 200% auto;
         color: white;
-       /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
-        border-radius: 10px;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 2px;
        }
-  
-      
       .btn:hover {
         background-position: right center; /* change the direction of the change here */
       }
@@ -76,47 +61,18 @@ const StyledWrapper = styled.div`
         background-image: linear-gradient(to right,  #4D3D9A 0%, #813082 50%, #4D3D9A 100%);
       }
 
-      .video-section {
-        position: relative;
-        /* Other styles go here */
-      }
-      
-      .video-section video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: -1;
-      }
-
-      .main{
-        height: 100svh;
-        width: 100%;
-        background-image: url('../images/waves.svg');
-      }
-      
 `;
 
 function HomePage(props) {
-
     return (
         <>
             <div className="main">
                 <StyledWrapper>
-                    <h1>Welcome to <span style={{ color: "#eae164", fontWeight: '1000' }}>UNITUBE</span></h1>
+                    <h1>Welcome to <span>UNITUBE</span></h1>
                     <p>{props.description}</p>
-                    <div className='container'>
-                        <a className="btn btn-1" href='#videos'>Explore</a>
-                    </div>
-
+                    <a className="btn btn-1" href='#videos'>Explore</a>
                 </StyledWrapper>
             </div>
-
-
 
             <VideoGrid >
 
@@ -141,7 +97,7 @@ function HomePage(props) {
                                     allowFullScreen
                                 />
                             </div>
-                            <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                            <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                 <div>
                                     <h3>{video.name}</h3>
                                     <p>Owner: {video.owner.name}</p>
