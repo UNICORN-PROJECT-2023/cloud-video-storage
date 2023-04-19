@@ -95,18 +95,16 @@ function HomePage(props) {
                 {props.allVideos.map((video) => (
 
                     <div
-                        
                         className="gridItem"
                         style={{ color: 'black' }}
                         key={video.id}
                     >
-
                         <div className="iframeWrapper">
                             <iframe
                                 src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
                                 title="YouTube video player"
                                 frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allow="picture-in-picture;"
                                 allowFullScreen
                             />
                         </div>
@@ -120,8 +118,6 @@ function HomePage(props) {
                             </div>
                         </Link>
                         <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} onClick={() => props.addToList(video.id)}>Add to list</motion.button>
-
-
                     </div>
                 ))}
             </StyledVideoList>
