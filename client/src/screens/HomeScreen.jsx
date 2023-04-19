@@ -62,7 +62,7 @@ function HomeScreen() {
 
     return(
         <HomePage
-        description="This is a video sharing platform where you can share your videos with the world."
+        description="Your platform for sharing videos with the world"
         allVideos={videos}
         user={user}
         addToList={addToList}
