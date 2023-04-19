@@ -38,8 +38,7 @@ export default class VideoService {
         console.log(await response.json());
         console.log(response);
         if (response.status === 200 || response.status === 201 || response.status === 202) {
-            const data = await response.json();
-            return data;
+            return;
         }
         const error = await response.json();
         throw new Error(error.message);

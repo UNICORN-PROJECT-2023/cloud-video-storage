@@ -87,20 +87,19 @@ function ProfileScreen() {
 
   async function createVideo() {
     try {
-      videoService.createVideo(
+      await videoService.createVideo(
         nameRef.current.value,
         descriptionRef.current.value,
         Number(episodeRef.current.value),
         originalLinkRef.current.value,
         [materialsRef.current.value]
       );
+      await fetchUserVideos()
       nameRef.current.value = "";
       descriptionRef.current.value = "";
       episodeRef.current.value = "";
       originalLinkRef.current.value = "";
       materialsRef.current.value = "";
-      console.log(fetchUserVideos());
-      await fetchUserVideos();
     } catch (error) {
       setError(error)
     }
