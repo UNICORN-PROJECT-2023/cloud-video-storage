@@ -4,7 +4,6 @@ import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
 import backgroundImage from '../images/bg2.gif';
-import { ReactComponent as Background } from '../images/wavessvg.svg';
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -13,9 +12,16 @@ const StyledWrapper = styled.div`
     justify-content: center;
     min-height: 100svh;
     border-radius: 1rem;
+    background-image: url(${backgroundImage});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     
     @media (max-width: 768px) {
         padding: 0 2rem;
+    }
+    @media (max-width: 1920px) {
+        background-size: 90%;
     }
 
     h1 {
@@ -58,23 +64,19 @@ const StyledWrapper = styled.div`
       .btn:hover {
         background-position: right center; /* change the direction of the change here */
       }
-
       .btn-1 {
         background-image: linear-gradient(to right,  #4D3D9A 0%, #813082 50%, #4D3D9A 100%);
       }
-
 `;
 
 function HomePage(props) {
     return (
         <>
-            <div className="main" style={{backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '100svh', width: '100%'}} >
-                <StyledWrapper >
-                    <h1>Welcome to <span>UNITUBE</span></h1>
-                    <p>{props.description}</p>
-                    <a className="btn btn-1" href='#videos'>Explore</a>
-                </StyledWrapper>
-            </div>
+            <StyledWrapper >
+                <h1>Welcome to <span>UNITUBE</span></h1>
+                <p>{props.description}</p>
+                <a className="btn btn-1" href='#videos'>Explore</a>
+            </StyledWrapper>
             <VideoGrid>
                 {props.allVideos.map((video) => {
                     const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === props?.user?.id);
