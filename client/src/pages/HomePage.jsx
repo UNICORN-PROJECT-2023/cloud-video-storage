@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
+import backgroundImage from '../images/waves.png';
+import { ReactComponent as Background } from '../images/wavessvg.svg';
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -66,8 +68,8 @@ const StyledWrapper = styled.div`
 function HomePage(props) {
     return (
         <>
-            <div className="main">
-                <StyledWrapper>
+            <div className="main" style={{backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '100svh', width: '100%'}} >
+                <StyledWrapper >
                     <h1>Welcome to <span>UNITUBE</span></h1>
                     <p>{props.description}</p>
                     <a className="btn btn-1" href='#videos'>Explore</a>
