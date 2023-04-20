@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
-import backgroundImage from '../images/bg2.gif';
+import backgroundImage from '../images/unitubebg.png';
 
 const StyledWrapper = styled.div`
     display: flex;
