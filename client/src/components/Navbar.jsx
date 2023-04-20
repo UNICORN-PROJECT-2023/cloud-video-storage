@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import UserService from '../services/userService';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { motion} from 'framer-motion';
+import { motion } from 'framer-motion';
+import '../styles/NavbarStyles.css';
 
 function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -42,11 +43,13 @@ function Navbar() {
 
     const linkStyle = {
         color: 'white',
-        fontSize: '1.5rem',
+        fontSize: '1.3rem',
         fontWeight: 'bold',
         letterSpacing: '2px',
+        
     }
 
+ 
     const subPages = [
         { name: 'Home', path: '/' },
         ...(data.username
@@ -59,7 +62,7 @@ function Navbar() {
     ];
 
     return (
-        <nav className="navbar fixed-top navbar-expand-lg navbar-dark" style={{backgroundColor: '#0D1117'}}>
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark" style={{ backgroundColor: '#0D1117' }}>
             <Link className="navbar-brand" to="/" >
                 <img src={logo} width="115" height="115" alt="" />
             </Link>
@@ -80,14 +83,16 @@ function Navbar() {
                                     className="nav-item"
                                     key={page.name}
                                 >
-                                    <Link className="nav-link" style={linkStyle} onClick={handleSidebarToggle} to={page.path}>{page.name}</Link>
+                                    <Link className="nav-link link-with-underline" style={linkStyle} to={page.path} onClick={handleSidebarToggle}>
+                                        {page.name}
+                                    </Link>        
                                 </motion.li>
                             )
                         ))}
                         {data.username && (
                             <motion.li whileHover={{ scale: 1.2 }}
                                 whileTap={{ scale: 0.9 }} className="nav-item">
-                                <Link className="nav-link" onClick={() => logout()} style={linkStyle} to="/">Logout</Link>
+                                <Link className="nav-link link-with-underline" onClick={() => logout()} style={linkStyle} to="/">Logout</Link>
                             </motion.li>
                         )}
                     </ul>

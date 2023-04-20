@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
-import backgroundImage from '../images/waves.png';
+import backgroundImage from '../images/bg2.gif';
 import { ReactComponent as Background } from '../images/wavessvg.svg';
 
 const StyledWrapper = styled.div`
