@@ -7,43 +7,48 @@ import FormComponent from '../components/FormComponent';
 import VideoGrid from '../components/VideoGrid';
 
 const StyledWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh;
+  max-width: 700px;
+  font-size: 1.5rem;
+  margin: 0 auto;
 
-    h1 {
-        padding: 1rem;
-        font-weight: 1000;
+  @media (max-width: 768px) {
+    margin: 0 1rem;
+  }
+
+  h1 {
+    padding: 1rem;
+    font-weight: 1000;
+    color: #eae164;
+  }
+  button {
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10rem 10rem 10rem 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #3c6ca8;
+  }
+  input {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 65%;
+
+    &:focus {
+      outline: none;
+      border: 2px solid #b78fd6;
     }
-    button {
-      color: #fff;
-      border: none;
-      padding: 1rem 2rem;
-      margin: 0.2rem;
-      border-radius: 5px;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: orange;
-      min-width: 200px;
-    }
-    input{
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: 2px solid black;
-      border-radius: 5px;
-      font-size: 1rem;
-      min-width: 250px;
-    
-      &:focus {
-        outline: none;
-        border: 2px solid #b78fd6;
-      }
-    }
+  }
     ::-ms-reveal {
       border: 1px solid transparent;
       border-radius: 50%;
@@ -106,7 +111,7 @@ function ProfilePage(props) {
         )}
       </FormComponent>
       <FormComponent>
-        <h1>Create Video</h1>
+        <h1>{props.create}</h1>
         <input type="text" ref={props.nameRef} placeholder="Title" />
         <textarea type="text" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
         <input type="text" ref={props.episodeRef} placeholder="Episode" />
@@ -204,7 +209,7 @@ function ProfilePage(props) {
                   allowFullScreen
                 />
               </div>
-              <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div>
                   <h3>{video.name}</h3>
                   <p>Owner: {video.owner.name}</p>

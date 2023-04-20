@@ -59,14 +59,14 @@ function Navbar() {
     ];
 
     return (
-        <nav className="navbar fixed-top navbar-expand-lg" style={{backgroundColor: '#0D1117'}}>
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark" style={{backgroundColor: '#0D1117'}}>
             <Link className="navbar-brand" to="/" >
-                <img src={logo} width="150" height="150" alt="" />
+                <img src={logo} width="115" height="115" alt="" />
             </Link>
             <button className="navbar-toggler" type="button" style={{ margin: '0.4rem 2rem' }} onClick={handleSidebarToggle} aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <div style={{ backgroundColor: '#3c6ca8' }} className={`offcanvas offcanvas-end${showSidebar ? ' show' : ''}`} tabIndex="-1" id="sidebar">
+            <div style={{ backgroundColor: '#141a24' }} className={`offcanvas offcanvas-end${showSidebar ? ' show' : ''}`} tabIndex="-1" id="sidebar">
                 <div className="offcanvas-header">
                     <button type="button" className="btn-close text-reset" onClick={handleSidebarToggle}></button>
                 </div>

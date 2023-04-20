@@ -33,24 +33,31 @@ const StyledWrapper = styled.div`
 
   h1 {
     padding: 1rem;
+    background: -webkit-linear-gradient(#C81C5D, #813082, #4D3D9A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: 1000;
-    color: #eae164;
   }
 
   button {
     color: #fff;
     border: none;
     padding: 1rem 2rem;
-    border-radius: 10rem 10rem 10rem 0;
+    border-radius: 0.5rem;
     font-size: 1rem;
     letter-spacing: 1px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #3c6ca8;
+    background-image: linear-gradient(#C81C5D, #813082, #4D3D9A);
   }
   p {
     color: rgb(235, 222, 222);
     font-size: 1.2rem;
+  }
+  
+  a {
+    color: white;
   }
 `;
 
@@ -61,7 +68,7 @@ function LoginPage(props) {
             <input ref={props.emailInput}  type="email" placeholder="Email" />
             <input ref={props.passwordInput} type="password" placeholder="Password" />
             {props.error && <p style={{color: '#D2122E', fontWeight: '1000'}}>{String(props.error)}</p>}
-            <p>If you dont have an account <Link to="/register" style={{textDecoration: 'none', color: 'black'}}>Register here</Link></p>
+            <p>If you dont have an account <Link to="/register" style={{textDecoration: 'none', color: "#6c7482"}}>Register here</Link></p>
             <motion.button whileHover={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
         </StyledWrapper>
     );

@@ -199,6 +199,7 @@ function ProfileScreen() {
 
   return (
     <ProfilePage
+      create="Create video"
       loading={loading}
       username={data.username}
       email={data.email}
