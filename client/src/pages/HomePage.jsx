@@ -4,6 +4,7 @@ import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
 import ButtonComponent from '../components/ButtonComponent';
 import backgroundImage from '../images/unitubebg.png';
+import { useRef } from 'react';
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -70,13 +71,24 @@ const StyledWrapper = styled.div`
 `;
 
 function HomePage(props) {
+    const videoRef = useRef(null);
+    const scrollToVideos = () => {
+        const offset = 150; // velikost navbaru v pixelech
+        const elementPosition = videoRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      };
     return (
         <>
             <StyledWrapper >
                 <h1>Welcome to <span>UNITUBE</span></h1>
                 <p>{props.description}</p>
-                <a className="btn btn-1" href='#videos'>Explore</a>
+                <button className="btn btn-1" onClick={scrollToVideos}>Explore</button>
             </StyledWrapper>
+            <div ref={videoRef}></div>
             <VideoGrid>
                 {props.allVideos.map((video) => {
                     const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === props?.user?.id);
@@ -104,7 +116,6 @@ function HomePage(props) {
 
                                 </div>
                             </Link>
-
                             {(props.isLoggedIn()) ?
                                 isSubscribed
                                     ? <ButtonComponent

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 import {Link} from 'react-router-dom';
-import FormComponent from '../components/FormComponent';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -65,8 +64,8 @@ function LoginPage(props) {
     return (
         <StyledWrapper>
             <h1>{props.title}</h1>
-            <input ref={props.emailInput}  type="email" placeholder="Email" />
-            <input ref={props.passwordInput} type="password" placeholder="Password" />
+            <input ref={props.emailInput} type="email" name='email' placeholder="Email" />
+            <input ref={props.passwordInput} type="password" name='password' placeholder="Password" />
             {props.error && <p style={{color: '#D2122E', fontWeight: '1000'}}>{String(props.error)}</p>}
             <p>If you dont have an account <Link to="/register" style={{textDecoration: 'none', color: "#6c7482"}}>Register here</Link></p>
             <motion.button whileHover={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
