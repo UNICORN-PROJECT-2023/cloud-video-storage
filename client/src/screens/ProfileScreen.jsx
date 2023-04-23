@@ -12,6 +12,7 @@ function ProfileScreen() {
   const [error, setError] = useState(null);
   const [userEdit, setUserEdit] = useState(false);
   const [type, setType] = useState("password");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   
   // TODO přejmenovat na user
   const [data, setData] = useState({
@@ -172,8 +173,10 @@ function ProfileScreen() {
   function showPassword() {
     if (type === "password") {
       setType("text");
+      setPasswordVisible(true);
     } else {
       setType("password");
+      setPasswordVisible(false);
     }
   }
 
@@ -218,6 +221,7 @@ function ProfileScreen() {
       editUserPasswordRef={editUserPasswordRef}
       type = {type}
       showPassword = {showPassword}
+      passwordVisible = {passwordVisible}
       editUser = {editProfile}
       userEdit = {userEdit}
       userEditMode = {userEditMode}

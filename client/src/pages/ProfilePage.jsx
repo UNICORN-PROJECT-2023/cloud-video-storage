@@ -1,12 +1,13 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import '../styles/Profile.css';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
 import ButtonComponent from '../components/ButtonComponent';
 import FormComponent from '../components/FormComponent';
 import VideoGrid from '../components/VideoGrid';
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -66,29 +67,29 @@ function ProfilePage(props) {
       </StyledWrapper>
     )
   }
-
   // tohle se nespusti pokud je loading true
   return (
-    <div style={{ marginTop: '18rem' }}>
+    <div style={{ marginTop: '12rem' }}>
       <div className="userProfile">
         <div className="user-details">
-
-
           {props.userEdit ? (
-            <>
-              <div className="userEdit">
-                <h1>Edit your details</h1>
-                <input type="text" ref={props.editUserNameRef} defaultValue={props.username} placeholder='Username' />
-                <input type="text" ref={props.editUserEmailRef} defaultValue={props.email} placeholder='Email' />
-                <input type={props.type} ref={props.editUserPasswordRef} placeholder=' New password' />
-                <ButtonComponent
-                  bgColor="orange"
-                  onClick={() => props.showPassword()}
-                  txtColor="white"
-                  text="Show password"
-                  padding="0.2rem"
-                />
-                <div>
+            <div className="userEdit">
+              <h1>Edit your details</h1>
+              <input type="text" ref={props.editUserNameRef} defaultValue={props.username} placeholder='Username' />
+              <input type="text" ref={props.editUserEmailRef} defaultValue={props.email} placeholder='Email' />
+              <div className="passwordContainer">
+                <input type={props.type} ref={props.editUserPasswordRef} style={{width: '100%'}} placeholder=' New password' />
+                {props.passwordVisible ?
+                  <i className="eyeIcon" onClick={() => props.showPassword()}>
+                    <VisibilityIcon />
+                  </i> :
+                  <i className="eyeIcon" onClick={() => props.showPassword()}>
+                    <VisibilityOffIcon  />
+                  </i>
+                }
+              </div>
+              <div>
+                <div style={{ display: 'flex' }}>
                   <ButtonComponent
                     bgColor="green"
                     onClick={() => props.editUser() && props.onCancelUserClick}
@@ -103,12 +104,12 @@ function ProfilePage(props) {
                   />
                 </div>
               </div>
-            </>
+            </div>
+
           ) : (
             <>
               <h1>Welcome to your profile, <span>{props.username}</span></h1>
               <p>Here you can Edit your profile details, create your videos, see your posted videos and see your list of videos.</p>
-
               <ButtonComponent
                 onClick={props.userEditMode}
                 text='Edit user data'
