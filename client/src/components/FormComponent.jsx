@@ -8,10 +8,13 @@ const StyledWrapper = styled.div`
   font-size: 1.5rem;
   margin: 1rem auto;
   border-radius: 1rem;
-  background-color: white;
-  color: black;
+  color: #ffffff;
   max-width: 700px;
   padding: 1rem;
+  width: 100%;
+  border: 3px dashed purple;
+  
+  
   
   @media (max-width: 768px) {
     margin: 2rem 1rem;
@@ -27,7 +30,7 @@ const StyledWrapper = styled.div`
   
     &:focus {
       outline: none;
-      border: 2px solid cornflowerblue;
+      border: 2px solid #5e11b0;
     }
   }
 `;
