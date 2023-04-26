@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import Login from './screens/LoginScreen';
 import VideoDetailScreen from './screens/VideoDetailScreen';
+import ScrollToTop from './components/ScrollToTop';
 
 
 import './App.css';
@@ -19,6 +20,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
