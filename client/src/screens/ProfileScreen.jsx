@@ -14,7 +14,6 @@ function ProfileScreen() {
   const [type, setType] = useState("password");
   const [passwordVisible, setPasswordVisible] = useState(false);
   
-  // TODO přejmenovat na user
   const [user, setUser] = useState({
     id: "",
     username: "",
@@ -34,13 +33,7 @@ function ProfileScreen() {
 
   useEffect(() => {
     getUser();
-  }, []);
-
-  useEffect(() => {
     fetchUserVideos();
-  }, []);
-
-  useEffect(() => {
     fetchVideoList();
   }, []);
 
@@ -64,7 +57,6 @@ function ProfileScreen() {
     }
   }
  
-
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
     if (url && typeof url === 'string') {
