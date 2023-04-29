@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import DateUtils from '../utils/DateUtils';
 import VideoGrid from '../components/VideoGrid';
-import ButtonComponent from '../components/ButtonComponent';
 import backgroundImage from '../images/unitubebg.png';
+import AllVideosComponent from '../components/AllVideosComponent';
 import { useRef } from 'react';
 
 const StyledWrapper = styled.div`
@@ -77,10 +75,10 @@ function HomePage(props) {
         const elementPosition = videoRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition - offset;
         window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
+            top: offsetPosition,
+            behavior: "smooth"
         });
-      };
+    };
     return (
         <>
             <StyledWrapper >
@@ -90,51 +88,7 @@ function HomePage(props) {
             </StyledWrapper>
             <div ref={videoRef}></div>
             <VideoGrid>
-                {props.allVideos.map((video) => {
-                    const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === props?.user?.id);
-                    return (
-                        <div
-                            className="gridItem"
-                            style={{ color: 'black' }}
-                            key={video.id}
-                        >
-                            <div className="iframeWrapper" >
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${props.getVideoIdFromUrl(video.originalLink)}`}
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="picture-in-picture;"
-                                    allowFullScreen
-                                />
-                            </div>
-                            <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                <div>
-                                    <h3>{video.name}</h3>
-                                    <p>Owner: {video.owner.name}</p>
-                                    <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
-                                    <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
-
-                                </div>
-                            </Link>
-                            {(props.isLoggedIn()) ?
-                                isSubscribed
-                                    ? <ButtonComponent
-                                        bgColor="red"
-                                        onClick={() => props.onDeleteFromList(video.id)}
-                                        txtColor="white"
-                                        text="Delete from list"
-                                    />
-                                    : <ButtonComponent
-                                        bgColor="#3c6ca8"
-                                        onClick={() => props.addToList(video.id)}
-                                        txtColor="white"
-                                        text="Add to list"
-                                    />
-                                : null
-                            }
-                        </div>
-                    )
-                })}
+                <AllVideosComponent />
             </VideoGrid>
         </>
     );

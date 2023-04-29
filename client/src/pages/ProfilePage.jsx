@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import '../styles/Profile.css';
 import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
@@ -120,7 +119,7 @@ function ProfilePage(props) {
           )}
         </div>
         <FormComponent>
-          <h1>{props.create}</h1>
+          <h1>Create Video</h1>
           <input type="text" ref={props.nameRef} placeholder="Title" />
           <textarea type="text" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
           <input type="text" ref={props.episodeRef} placeholder="Episode" />

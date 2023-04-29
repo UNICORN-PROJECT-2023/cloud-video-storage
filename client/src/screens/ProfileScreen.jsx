@@ -15,7 +15,7 @@ function ProfileScreen() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   
   // TODO přejmenovat na user
-  const [data, setData] = useState({
+  const [user, setUser] = useState({
     id: "",
     username: "",
     email: "",
@@ -24,7 +24,7 @@ function ProfileScreen() {
   async function getUser() {
     setLoading(true);
     const user = await userService.getCurrentUser();
-    setData({
+    setUser({
       id: user.body.id,
       username: user.body.username,
       email: user.body.email,
@@ -202,10 +202,9 @@ function ProfileScreen() {
 
   return (
     <ProfilePage
-      create="Create video"
       loading={loading}
-      username={data.username}
-      email={data.email}
+      username={user.username}
+      email={user.email}
       error={error}
       getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}
