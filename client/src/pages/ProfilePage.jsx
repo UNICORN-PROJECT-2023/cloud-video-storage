@@ -77,13 +77,13 @@ function ProfilePage(props) {
               <input type="text" ref={props.editUserNameRef} defaultValue={props.username} placeholder='Username' />
               <input type="text" ref={props.editUserEmailRef} defaultValue={props.email} placeholder='Email' />
               <div className="passwordContainer">
-                <input type={props.type} ref={props.editUserPasswordRef} style={{width: '100%'}} placeholder=' New password' />
+                <input type={props.type} ref={props.editUserPasswordRef} style={{ width: '100%' }} placeholder=' New password' />
                 {props.passwordVisible ?
                   <i className="eyeIcon" onClick={() => props.showPassword()}>
                     <VisibilityIcon />
                   </i> :
                   <i className="eyeIcon" onClick={() => props.showPassword()}>
-                    <VisibilityOffIcon  />
+                    <VisibilityOffIcon />
                   </i>
                 }
               </div>
@@ -124,6 +124,13 @@ function ProfilePage(props) {
           <textarea type="text" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
           <input type="text" ref={props.episodeRef} placeholder="Episode" />
           <input type="text" ref={props.urlRef} placeholder="Url" />
+          <div className="categorySection">
+            {props.dataForCategories.map((category) => (
+              <button className="categoryButton" key={category.id} onClick={() => props.onCategoryClick(category.name)}>
+                {category.name}
+              </button>
+            ))}
+          </div>
           <input type="text" ref={props.materialsRef} placeholder="Materials" />
           {props.error && <p style={{ color: '#D2122E', fontWeight: '1000' }}>{String(props.error)}</p>}
           <ButtonComponent
@@ -135,8 +142,6 @@ function ProfilePage(props) {
         </FormComponent>
       </div>
       <div className="userVideos">
-
-
         <h1 style={{ textAlign: 'center' }}>My Videos</h1>
         <VideoGrid>
           {props.dataForUserVideos?.map((video) => (
@@ -181,7 +186,6 @@ function ProfilePage(props) {
                     <h3>{video.name}</h3>
                     <p>{video.owner.name}</p>
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
-                    <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
                   </div>
                 </Link>
                 <ButtonComponent
@@ -201,10 +205,8 @@ function ProfilePage(props) {
             </div>
           ))}
         </VideoGrid>
-
         <h1 style={{ textAlign: 'center' }}>My Video List</h1>
         <VideoGrid>
-
           {props.dataForVideoList?.map((video) => (
             <div
               className="gridItem"

@@ -13,6 +13,7 @@ function ProfileScreen() {
   const [userEdit, setUserEdit] = useState(false);
   const [type, setType] = useState("password");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [categories, setCategories] = useState([]);
   
   const [user, setUser] = useState({
     id: "",
@@ -35,6 +36,7 @@ function ProfileScreen() {
     getUser();
     fetchUserVideos();
     fetchVideoList();
+    fetchCategories();
   }, []);
 
   async function fetchUserVideos() {
@@ -57,6 +59,15 @@ function ProfileScreen() {
     }
   }
  
+  async function fetchCategories() {
+    try {
+      const categories = await videoService.getCategories();
+      setCategories(categories.body);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
     if (url && typeof url === 'string') {
@@ -200,7 +211,9 @@ function ProfileScreen() {
       error={error}
       getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}
+      dataForCategories = {categories}
       dataForVideoList={videoList}
+
       nameRef={nameRef}
       descriptionRef={descriptionRef}
       episodeRef={episodeRef}

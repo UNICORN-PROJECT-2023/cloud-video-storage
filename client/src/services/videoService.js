@@ -33,8 +33,8 @@ export default class VideoService {
         throw new Error("Failed to get video");
     }
 
-    createVideo = async (name, description, episode, originalLink, materials = []) => {
-        const response = await this.apiService.post('/video', { name, description, episode, originalLink, materials});
+    createVideo = async (name, description, episode, originalLink, materials = [], categories = []) => {
+        const response = await this.apiService.post('/video', { name, description, episode, originalLink, materials, categories});
         console.log(await response.json());
         console.log(response);
         if (response.status === 200 || response.status === 201 || response.status === 202) {
@@ -44,8 +44,8 @@ export default class VideoService {
         throw new Error(error.message);
     }
 
-    updateVideo = async (id, name, description, episode, originalLink, materials = []) => {
-        const response = await this.apiService.put(`/video/${id}`, { name, description, episode, originalLink, materials });
+    updateVideo = async (id, name, description, episode, originalLink, materials = [], categories = []) => {
+        const response = await this.apiService.put(`/video/${id}`, { name, description, episode, originalLink, materials, categories });
         console.log(await response.json());
         if (response.status === 200 || response.status === 201 || response.status === 202) {
             return;
@@ -86,4 +86,12 @@ export default class VideoService {
             return data;
         }
     };
+
+    getCategories = async () => {
+        const response = await this.apiService.get('/category/all');
+        if (response.status === 200 || response.status === 201 || response.status === 202){
+            const data = await response.json();
+            return data;
+        }
+    }
 }

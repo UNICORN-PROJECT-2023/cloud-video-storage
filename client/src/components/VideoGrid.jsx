@@ -11,7 +11,6 @@ const StyledVideoList = styled.div`
   .gridItem {
     border-radius: 1rem;
     padding: 1rem;
-    box-shadow: 0 25px 80px 0 rgb(22 24 28 / 10%);
     .iframeWrapper {
         position: relative;
         padding-top: 56.25%; /* 16:9 aspect ratio */
@@ -22,34 +21,30 @@ const StyledVideoList = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
+        border-radius: 1rem;
       }
   }
-  .gridItem:hover {
-    box-shadow: 0 25px 80px 0 rgb(22 24 28 / 20%);
-  }
   button {
-    color: #fff;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: red;
     width: 48%;
-    margin: 0.2rem;
-    
+    transform: translateX(-1.5%);
   }
   .editButton {
     background-color: #3c6ca8;
   }
+  h3 {
+    margin-top: 1rem;
+  }
+  p {
+    color: grey;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
 `;
 
-export default function VideoGrid({children}) {
-    return(
-        <StyledVideoList>
-            {children}
-        </StyledVideoList>
-    );
+export default function VideoGrid({ children }) {
+  return (
+    <StyledVideoList>
+      {children}
+    </StyledVideoList>
+  );
 }
