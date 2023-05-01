@@ -62,7 +62,7 @@ export class VideoService {
     const videoEntityArray = await this.videoDao.findAll();
 
     const videoDaoArray: Array<VideoOutDto> = videoEntityArray
-    .filter((videoEntity) => videoEntity.categoryVideoEntity.find((categoryVideo) => catId == undefined || catId == categoryVideo.categoryEntity.id))
+    .filter((videoEntity) => catId == undefined || videoEntity.categoryVideoEntity.find((categoryVideo) => catId == categoryVideo.categoryEntity.id))
     .map((videoEntity) => VideoTransformer.entityToDao(videoEntity)); 
 
     return videoDaoArray;
