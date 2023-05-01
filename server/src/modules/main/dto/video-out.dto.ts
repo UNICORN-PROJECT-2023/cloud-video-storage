@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { CategoryOutDto } from "./category.out.dto";
 
 export class VideoOutDto {
 
@@ -33,12 +34,15 @@ export class VideoOutDto {
   }>
 
   @ApiProperty({required: true})
+  categories: Array<CategoryOutDto>
+
+  @ApiProperty({required: true})
   createdAt: Date;
 
   @ApiProperty({required: true})
   updatedAt: Date;
   
-  constructor(id: number, name: string, description: string, episode: number, originalLink: string, materials: Array<string>, owner: {id: number, name: string}, subscribers: Array<{id: number, name: string}>, createdAt: Date, updatedAt: Date) {
+  constructor(id: number, name: string, description: string, episode: number, originalLink: string, materials: Array<string>, owner: {id: number, name: string}, subscribers: Array<{id: number, name: string}>, categories: Array<CategoryOutDto>, createdAt: Date, updatedAt: Date) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -47,6 +51,7 @@ export class VideoOutDto {
     this.materials = materials;
     this.owner = owner;
     this.subscribers = subscribers;
+    this.categories = categories;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

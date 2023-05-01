@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { CustomerVideoEntity } from './customer-video.entity';
+import { CategoryVideoEntity } from './category-video.entity';
 
 @Entity({ name: 'video' })
 export class VideoEntity {
@@ -32,6 +33,12 @@ export class VideoEntity {
     (customerVideoEntity) => customerVideoEntity.videoEntity, { onDelete: 'CASCADE' }
   )
   customerVideoEntity: CustomerVideoEntity[];
+
+  @OneToMany(
+    () => CategoryVideoEntity,
+    (categoryVideoEntity) => categoryVideoEntity.videoEntity, { onDelete: 'CASCADE' }
+  )
+  categoryVideoEntity: CategoryVideoEntity[];
   
   constructor(name: string, description: string, episode: number, originalLink: string, materials: Array<string>) {
     this.name = name;

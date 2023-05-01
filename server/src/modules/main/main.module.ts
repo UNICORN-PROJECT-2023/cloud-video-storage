@@ -10,14 +10,16 @@ import { VideoController } from './controllers/video.controller';
 import { VideoService } from './services/video.service';
 import { VideoListService } from './services/video-list.service';
 import { VideoListController } from './controllers/video-list.controller';
+import { CategoryService } from './services/category.service';
+import { CategoryController } from './controllers/category.controller';
 
 @Module({
   imports: [
     DatabaseModule,
     GuardModule
   ],
-  controllers: [UserController, VideoController, VideoListController],
-  providers: [ UserService, PasswordService, VideoService, VideoListService],
+  controllers: [UserController, VideoController, VideoListController, CategoryController],
+  providers: [ UserService, PasswordService, VideoService, VideoListService, CategoryService],
   exports: []
 })
 export class MainModule {}

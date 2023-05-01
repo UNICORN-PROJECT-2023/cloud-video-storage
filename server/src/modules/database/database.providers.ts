@@ -2,9 +2,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerVideoEntity } from './entity/customer-video.entity';
 import { CustomerEntity } from './entity/customer.entity';
 import { VideoEntity } from './entity/video.entity';
+import { CategoryEntity } from './entity/category.entity';
+import { CategoryVideoEntity } from './entity/category-video.entity';
 
 // List of entities
-const entities = [CustomerEntity, VideoEntity, CustomerVideoEntity]
+const entities = [CustomerEntity, VideoEntity, CustomerVideoEntity, CategoryEntity, CategoryVideoEntity]
 
 export const Provider = [
   TypeOrmModule.forRoot({

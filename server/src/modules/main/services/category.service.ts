@@ -10,46 +10,34 @@ import { JwtService } from 'src/modules/guard/service/jwt.service';
 import { UserPutInDto } from '../dto/user-put-in.dto';
 import { VideoOutDto } from '../dto/video-out.dto';
 import { VideoDao } from 'src/modules/database/dao/video.dao';
-import { VideoTransformer } from '../transformer/video.transformer';
 import { VideoInDto } from '../dto/video-in.dto';
 import { VideoType } from 'src/modules/database/types/video-type.type';
 import { CustomerVideoDao } from 'src/modules/database/dao/customer-video.dao';
+import { CategoryDao } from 'src/modules/database/dao/category.dao';
+import { CategoryOutDto } from '../dto/category.out.dto';
+import { CategoryTransformer } from '../transformer/category.transformer';
 
 
 @Injectable()
-export class VideoListService {
+export class CategoryService {
 
   constructor(
     @Inject(VideoDao)
     private videoDao: VideoDao,
-    @Inject(CustomerVideoDao)
-    private customerVideoDao: CustomerVideoDao,
+    @Inject(CategoryDao)
+    private categoryDao: CategoryDao,
   ) {}
   
 
-  async getAllVideosList(cstId: number): Promise<Array<VideoOutDto>> {
-    const videoEntityArray = await this.videoDao.findAll();
+  async getAllCategories(): Promise<Array<CategoryOutDto>> {
+    const categoryEntity = await this.categoryDao.findAll();
 
-    const videoDaoArray: Array<VideoOutDto> = videoEntityArray
-      .filter((videoEntity) => videoEntity.customerVideoEntity.find(
-        (customer) => customer.customerEntity.id == cstId && customer.type === VideoType.SUBSCRIBER)
-      )
-      .map(
-        (videoEntity) => VideoTransformer.entityToDao(videoEntity)
-      ); 
+    const category: Array<CategoryOutDto> = categoryEntity.map((entity) =>  CategoryTransformer.entityToDao(entity));
 
-    return videoDaoArray;
+    return category;
   }
 
 
-  async postVideoList(videoId: number, cstId: number): Promise<void> {
-    await this.customerVideoDao.add(videoId, cstId);
-  }
-
-
-  async deleteVideoList(videoId: number, cstId: number): Promise<void> {
-    await this.customerVideoDao.delete(videoId, cstId);
-  }
 
 }
 

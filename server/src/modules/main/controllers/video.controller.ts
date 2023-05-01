@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Req, Res, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Req, Res, SetMetadata, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { Roles } from 'src/modules/guard/decorators/roles.decorator';
 import { UserLoginInDto } from '../dto/user-login-in.dto';
@@ -21,8 +21,10 @@ export class VideoController {
 
   
   @Get("/all")
-  async getAllVideos(@Req() req: any): Promise<ResponseDto<Array<VideoOutDto>>> {
-    const videoDaoArray = await this.videoService.getAllVideos();
+  @ApiQuery({ name: 'categoryId', type: Number, required: false })
+  async getAllVideos(@Req() req: any, @Query('categoryId') id: number): Promise<ResponseDto<Array<VideoOutDto>>> {
+
+    const videoDaoArray = await this.videoService.getAllVideos(id);
 
     const response = new ResponseDtoBuilder<Array<VideoOutDto>>()
     .setStatusCode(200)

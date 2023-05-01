@@ -6,9 +6,11 @@ import { CustomerVideoEntity } from '../entity/customer-video.entity';
 import { CustomerEntity } from '../entity/customer.entity';
 import { VideoEntity } from '../entity/video.entity';
 import { VideoType } from '../types/video-type.type';
+import { CategoryEntity } from '../entity/category.entity';
 
 @Injectable()
 export class VideoDao {
+  
   constructor(
     @InjectRepository(CustomerEntity)
     private usersRepository: Repository<CustomerEntity>,
@@ -18,12 +20,24 @@ export class VideoDao {
     private usersVideoRepository: Repository<CustomerVideoEntity>,
   ) {}
 
+
   async findAll(): Promise<VideoEntity[]> {
-    return await this.videoRepository.find({relations: ["customerVideoEntity",  "customerVideoEntity.customerEntity"]});
+    return await this.videoRepository.find({relations: [
+      "customerVideoEntity",  
+      "customerVideoEntity.customerEntity",
+      "categoryVideoEntity",  
+      "categoryVideoEntity.categoryEntity"
+    ]});
   }
 
+
   async findById(id: number): Promise<VideoEntity> {
-    const tempVideoEntity = await this.videoRepository.find({relations: ["customerVideoEntity",  "customerVideoEntity.customerEntity"], where: {id: id}});
+    const tempVideoEntity = await this.videoRepository.find({relations: [
+      "customerVideoEntity",  
+      "customerVideoEntity.customerEntity",
+      "categoryVideoEntity",  
+      "categoryVideoEntity.categoryEntity"
+    ], where: {id: id}});
 
     // validate if video exists
     if(tempVideoEntity.length === 0) {
@@ -32,6 +46,7 @@ export class VideoDao {
 
     return tempVideoEntity[0];
   }
+
 
   async add(videoEntity: VideoEntity, cstId: number): Promise<void> {
     const customerEntity: CustomerEntity = await this.usersRepository.findOneBy({id: cstId});
@@ -46,6 +61,7 @@ export class VideoDao {
     await this.usersVideoRepository.save(customerVideoEntity);
   }
 
+
   async put(videoEntity: VideoEntity, id: number): Promise<void> {
     const tempVideoEntity = await this.videoRepository.findOneBy({ id: id });
     
@@ -54,12 +70,11 @@ export class VideoDao {
       throw new BadRequestException("Video by id not exists");
     }
 
-    console.log(tempVideoEntity)
-    console.log(videoEntity)
     const changedVideoEntity = {...tempVideoEntity, ...videoEntity};
 
     await this.videoRepository.save(changedVideoEntity);
   }
+
 
   async delete(id: number): Promise<void> {
     const tempVideoEntity = await this.videoRepository.findOneBy({ id: id });
@@ -71,4 +86,5 @@ export class VideoDao {
 
     await this.videoRepository.delete({id});
   }
+
 }

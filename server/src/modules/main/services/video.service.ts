@@ -10,9 +10,11 @@ import { JwtService } from 'src/modules/guard/service/jwt.service';
 import { UserPutInDto } from '../dto/user-put-in.dto';
 import { VideoOutDto } from '../dto/video-out.dto';
 import { VideoDao } from 'src/modules/database/dao/video.dao';
-import { videoTransformer } from '../transformer/video-transformer';
+import { VideoTransformer } from '../transformer/video.transformer';
 import { VideoInDto } from '../dto/video-in.dto';
 import { VideoType } from 'src/modules/database/types/video-type.type';
+import { CategoryVideoDao } from 'src/modules/database/dao/category-video.dao';
+import { CategoryDao } from 'src/modules/database/dao/category.dao';
 
 
 @Injectable()
@@ -21,6 +23,10 @@ export class VideoService {
   constructor(
     @Inject(VideoDao)
     private videoDao: VideoDao,
+    @Inject(CategoryDao)
+    private categoryDao: CategoryDao,
+    @Inject(CategoryVideoDao)
+    private categoryVideoDao: CategoryVideoDao,
   ) {}
   
   
@@ -32,7 +38,7 @@ export class VideoService {
         (customer) => customer.customerEntity.id == cstId && customer.type === VideoType.SUBSCRIBER)
       )
       .map(
-        (videoEntity) => videoTransformer.entityToDao(videoEntity)
+        (videoEntity) => VideoTransformer.entityToDao(videoEntity)
       ); 
 
     return videoDaoArray;
@@ -46,16 +52,18 @@ export class VideoService {
         (customer) => customer.customerEntity.id == cstId && customer.type === VideoType.OWNER)
       )
       .map(
-        (videoEntity) => videoTransformer.entityToDao(videoEntity)
+        (videoEntity) => VideoTransformer.entityToDao(videoEntity)
       ); 
 
     return videoDaoArray;
   }
   
-  async getAllVideos(): Promise<Array<VideoOutDto>> {
+  async getAllVideos(catId?: number): Promise<Array<VideoOutDto>> {
     const videoEntityArray = await this.videoDao.findAll();
 
-    const videoDaoArray: Array<VideoOutDto> = videoEntityArray.map((videoEntity) => videoTransformer.entityToDao(videoEntity)); 
+    const videoDaoArray: Array<VideoOutDto> = videoEntityArray
+    .filter((videoEntity) => videoEntity.categoryVideoEntity.find((categoryVideo) => catId == undefined || catId == categoryVideo.categoryEntity.id))
+    .map((videoEntity) => VideoTransformer.entityToDao(videoEntity)); 
 
     return videoDaoArray;
   }
@@ -63,29 +71,66 @@ export class VideoService {
   async getVideoById(videoId: number): Promise<VideoOutDto> {
     const videoEntity = await this.videoDao.findById(videoId);
 
-    const video: VideoOutDto = videoTransformer.entityToDao(videoEntity);
+    const video: VideoOutDto = VideoTransformer.entityToDao(videoEntity);
 
     return video;
   }
 
   async postVideo(videoDao: VideoInDto, cstId: number): Promise<void> {
-    const videoEntity = videoTransformer.daoToEntity(videoDao);
+    const videoEntity = VideoTransformer.dtoToEntity(videoDao);
+
+    // find and validate categories
+    const categoryEntityArray = [];
+    for(const category of videoDao.categories) {
+      const categoryEntity = await this.categoryDao.findByName(category.name);
+      categoryEntityArray.push(categoryEntity);
+    }
+    
+    // save video
     await this.videoDao.add(videoEntity, cstId);
+
+    // save video categories
+    const entityPromisses = [];
+    for(const categoryEntity of categoryEntityArray)  {
+      entityPromisses.push(this.categoryVideoDao.add(videoEntity.id, categoryEntity.id))
+    }
+
+    await Promise.all(entityPromisses);
   }
 
 
   async putVideo(videoDao: VideoInDto, videoId: number, cstId: number): Promise<void> {
-    const videoEntity = videoTransformer.daoToEntity(videoDao)
+    const videoEntity = VideoTransformer.dtoToEntity(videoDao)
 
     // validate if user is owner
     const tempVideoEntity = await this.videoDao.findById(videoId);
-    const tempVideoDao = videoTransformer.entityToDao(tempVideoEntity);
+    const tempVideoDao = VideoTransformer.entityToDao(tempVideoEntity);
 
     if(tempVideoDao.owner.id != cstId)  {
       throw new ForbiddenException("User is not owner");
     }
 
+    // find and validate categories
+    const categoryEntityArray = [];
+    for(const category of videoDao.categories) {
+      const categoryEntity = await this.categoryDao.findByName(category.name);
+      categoryEntityArray.push(categoryEntity);
+    }
+
+    // update saved video
     await this.videoDao.put(videoEntity, videoId);
+
+
+    // delete old video categories
+    await this.categoryVideoDao.remove(videoId, undefined);
+
+    // save new video categories
+    const entityPromisses = [];
+    for(const categoryEntity of categoryEntityArray)  {
+      entityPromisses.push(this.categoryVideoDao.add(videoId, categoryEntity.id))
+    }
+
+    await Promise.all(entityPromisses);
   }
 
 
@@ -93,7 +138,7 @@ export class VideoService {
     
     // validate if user is owner
     const tempVideoEntity = await this.videoDao.findById(videoId);
-    const tempVideoDao = videoTransformer.entityToDao(tempVideoEntity);
+    const tempVideoDao = VideoTransformer.entityToDao(tempVideoEntity);
 
     if(tempVideoDao.owner.id != cstId)  {
       throw new ForbiddenException("User is not owner");
