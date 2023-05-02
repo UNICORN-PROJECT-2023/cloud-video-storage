@@ -18,10 +18,13 @@ export default function AllVideosComponent() {
 
   async function fetchVideos() {
     try {
-      const allVideos = await videoService.getAllVideos();
-      const categories = await videoService.getCategories();
-      setVideos(allVideos.body);
-      setCategories(categories.body);
+      const allVideos = videoService.getAllVideos();
+      const categories = videoService.getCategories();
+      const [allVideosRes, categoriesRes] = await Promise.all([allVideos, categories]).then(([allVideos, categories]) => {
+        return  [allVideos, categories];
+      });
+      setVideos(allVideosRes.body);
+      setCategories(categoriesRes.body);
       // if user is logged in
       const user = await userService.getCurrentUser();
       user && setUser(user.body);

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import ProfilePage from '../pages/ProfilePage';
 import UserService from '../services/userService';
 import VideoService from '../services/videoService';
@@ -13,7 +13,9 @@ function ProfileScreen() {
   const [userEdit, setUserEdit] = useState(false);
   const [type, setType] = useState("password");
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const [categories, setCategories] = useState([]);
+
   
   const [user, setUser] = useState({
     id: "",
@@ -96,7 +98,11 @@ function ProfileScreen() {
         descriptionRef.current.value,
         Number(episodeRef.current.value),
         originalLinkRef.current.value,
-        [materialsRef.current.value]
+        [materialsRef.current.value],
+        categories
+            .filter((category) => category.isSelected)
+            .map((category) => ({name: category.name})
+        )
       );
       await fetchUserVideos()
       nameRef.current.value = "";
@@ -203,6 +209,38 @@ function ProfileScreen() {
     }
   }
 
+  async function onCategoryClick(name) {
+    setCategories((createCategories) => {
+
+      // remove category from array
+      if(createCategories.find((category) => category.name === name && category.isSelected === true)) {
+        return createCategories.map((category) => {
+          if (category.name === name) {
+            category.isSelected = false;
+            return category
+          }
+          return category
+        })
+
+      }
+
+      // add category to array
+      if(createCategories.filter((category) => category.isSelected === true).length < 3) {
+        return createCategories.map((category) => {
+          if (category.name === name) {
+            category.isSelected = true;
+            return category
+          }
+          return category
+        })
+      }
+
+      return createCategories;
+    });
+  }
+
+  console.log(categories)
+
   return (
     <ProfilePage
       loading={loading}
@@ -244,6 +282,7 @@ function ProfileScreen() {
       onEditClick={updateVideo}
       onDeleteClick={deleteVideo}
       onDeleteFromList={deleteVideoFromList}
+      onCategoryClick={onCategoryClick}
     />
   );
 }
