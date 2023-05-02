@@ -86,7 +86,7 @@ span {
     margin: 1rem;
 }
 
-.categoryButton {
+.categoryButton, .categoryDisplay {
     border: none;
     font-size: 1rem;
     background-color: transparent;

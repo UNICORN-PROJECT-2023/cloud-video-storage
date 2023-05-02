@@ -4,6 +4,7 @@ import UserService from '../services/userService';
 import DateUtils from '../utils/DateUtils';
 import ButtonComponent from '../components/ButtonComponent';
 import { Link } from 'react-router-dom';
+import GetCategories from '../components/GetCategories'
 
 export default function AllVideosComponent() {
   const [videos, setVideos] = useState([]);
@@ -67,7 +68,6 @@ export default function AllVideosComponent() {
   }
 
   return (
-
     videos.map((video) => {
       const isSubscribed = video?.subscribers?.find((subscriber) => subscriber.id === user?.id);
       return (
@@ -89,10 +89,7 @@ export default function AllVideosComponent() {
               <div>
                 <h3>{video.name}</h3>
                 <p>{video.owner.name}</p>
-                {categories.map((category) => {
-                    <p key={category.id}>{category.name}</p>
-                  })
-                }
+                    <GetCategories array={video.categories}/>
                 <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
               </div>
             </Link>

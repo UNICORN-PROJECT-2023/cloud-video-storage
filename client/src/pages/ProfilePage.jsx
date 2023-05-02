@@ -7,6 +7,7 @@ import FormComponent from '../components/FormComponent';
 import VideoGrid from '../components/VideoGrid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import GetCategories from '../components/GetCategories'
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -185,6 +186,7 @@ function ProfilePage(props) {
                   <div>
                     <h3>{video.name}</h3>
                     <p>{video.owner.name}</p>
+                       <GetCategories array={video.categories}/>
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
                   </div>
                 </Link>
@@ -226,8 +228,8 @@ function ProfilePage(props) {
                   <div>
                     <h3>{video.name}</h3>
                     <p>Owner: {video.owner.name}</p>
+                       <GetCategories array={video.categories}/>
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
-                    <p>Updated: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
                   </div>
                 </Link>
                 <ButtonComponent

@@ -85,6 +85,7 @@ function HomePage(props) {
                 <h1>Welcome to <span>UNITUBE</span></h1>
                 <p>{props.description}</p>
                 <button className="btn btn-1" onClick={scrollToVideos}>Explore</button>
+
             </StyledWrapper>
             <div ref={videoRef}></div>
             <VideoGrid>
