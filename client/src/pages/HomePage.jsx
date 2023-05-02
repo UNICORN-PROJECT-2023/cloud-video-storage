@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import VideoGrid from '../components/VideoGrid';
 import backgroundImage from '../images/unitubebg.png';
 import AllVideosComponent from '../components/AllVideosComponent';
 import { useRef } from 'react';
@@ -85,12 +84,9 @@ function HomePage(props) {
                 <h1>Welcome to <span>UNITUBE</span></h1>
                 <p>{props.description}</p>
                 <button className="btn btn-1" onClick={scrollToVideos}>Explore</button>
-
             </StyledWrapper>
             <div ref={videoRef}></div>
-            <VideoGrid>
-                <AllVideosComponent />
-            </VideoGrid>
+            <AllVideosComponent/>
         </>
     );
 }

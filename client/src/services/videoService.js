@@ -6,8 +6,8 @@ export default class VideoService {
         this.apiService = new ApiService();
     }
 
-    getAllVideos = async () => {
-        const response = await this.apiService.get('/video/all');
+    getAllVideos = async (categoryId) => {
+        const response = await this.apiService.get('/video/all', {categoryId});
         if (response.status === 200 || response.status === 201 || response.status === 202) {
             const data = await response.json();
             return data;

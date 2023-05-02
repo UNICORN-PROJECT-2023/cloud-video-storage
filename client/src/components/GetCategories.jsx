@@ -2,9 +2,9 @@ export default function GetCategories(props) {
     return(
      <div className="categorySection">
        {props.array.map((category) => (
-         <div className="categoryDisplay" key={category.id}>
+         <button style={{width: "100%"}} className="categoryDisplay" key={category.id}>
            {category.name}
-         </div>
+         </button>
        ))}
      </div>
     );
