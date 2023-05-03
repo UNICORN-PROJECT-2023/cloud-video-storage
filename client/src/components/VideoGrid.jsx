@@ -10,6 +10,8 @@ const StyledVideoList = styled.div`
 
   .gridItem {
     border-radius: 1rem;
+    border: 1px solid black;
+    border-radius: 1rem;
     padding: 1rem;
     .iframeWrapper {
         position: relative;

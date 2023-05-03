@@ -82,7 +82,7 @@ span {
 .categorySection {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     margin: 1rem;
 }
 

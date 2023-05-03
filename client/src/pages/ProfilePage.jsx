@@ -127,7 +127,7 @@ function ProfilePage(props) {
           <input type="text" ref={props.urlRef} placeholder="Url" />
           <div className="categorySection">
             {props.dataForCategories.map((category) => (
-              <button className="categoryButton" key={category.id} style={category?.isSelected ? {background: "red"} : null} onClick={() => props.onCategoryClick(category.name)}>
+              <button className="categoryButton" key={category.id} style={category?.isSelected ? {background: "#3c6cb9"} : null} onClick={() => props.onCategoryClick(category.name)}>
                 {category.name}
               </button>
             ))}

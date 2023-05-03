@@ -58,7 +58,6 @@ export default function AllVideosComponent() {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [activeCategoryButton, setActiveCategoryButton] = useState(false);
 
-
   const videoService = new VideoService();
   const userService = new UserService();
 
@@ -93,11 +92,12 @@ export default function AllVideosComponent() {
     if (categoryId === activeCategoryId) {
       setActiveCategoryId(null);
       setActiveCategoryButton(false);
+      fetchVideos();
     } else {
       setActiveCategoryId(categoryId);
       setActiveCategoryButton(true);
+      fetchVideos(categoryId);
     }
-    fetchVideos(categoryId);
   }
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
@@ -141,7 +141,7 @@ export default function AllVideosComponent() {
                 className="categoryButton"
                 key={category.id}
                 onClick={() => handleCategoryButtonClick(category.id)}
-                style={{ backgroundColor: activeCategoryId === category.id && activeCategoryButton ? 'red' : 'transparent' }}
+                style={{ backgroundColor: activeCategoryId === category.id && activeCategoryButton ? '#3c6cb9' : 'transparent' }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
             >
