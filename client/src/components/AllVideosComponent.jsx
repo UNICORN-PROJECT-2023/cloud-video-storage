@@ -62,24 +62,25 @@ export default function AllVideosComponent() {
     fetchVideos();
   }, []);
 
-  async function fetchVideos(categoryId) {
-    try {
-      let videos;
-      if(!categoryId) {
-        videos = await videoService.getAllVideos();
-      } else {
-        videos = await videoService.getAllVideos(categoryId);
-      }
-      setVideos(videos.body);
-      const categories = await videoService.getCategories();
-      setCategories(categories.body);
-      // if user is logged in
-      const user = await userService.getCurrentUser();
-      user && setUser(user.body);
-    } catch (error) {
-      console.error(error);
-    }
+async function fetchVideos(categoryId) {
+  try {
+    const [videos, categories] = await Promise.all([
+      videoService.getAllVideos({ categoryId: categoryId }),
+      videoService.getCategories()
+    ]);
+    setCategories(categories.body);
+    setVideos(videos.body);
+
+    console.log(videos.body);
+    console.log(categoryId);
+
+    // if user is logged in
+    const user = await userService.getCurrentUser();
+    user && setUser(user.body);
+  } catch (error) {
+    console.error(error);
   }
+}
 
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
