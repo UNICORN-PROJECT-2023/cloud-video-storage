@@ -7,10 +7,13 @@ export default class VideoService {
     }
 
     getAllVideos = async (categoryId) => {
-        const response = await this.apiService.get('/video/all', {categoryId});
+        let url = '/video/all';
+        if (categoryId) {
+            url += `?categoryId=${categoryId}`;
+        }
+        const response = await this.apiService.get(url);
         if (response.status === 200 || response.status === 201 || response.status === 202) {
-            const data = await response.json();
-            return data;
+            return await response.json();
         }
         throw new Error("Failed to get all videos");
     }

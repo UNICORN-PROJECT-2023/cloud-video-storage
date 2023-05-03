@@ -211,7 +211,6 @@ function ProfileScreen() {
 
   async function onCategoryClick(name) {
     setCategories((createCategories) => {
-
       // remove category from array
       if(createCategories.find((category) => category.name === name && category.isSelected === true)) {
         return createCategories.map((category) => {

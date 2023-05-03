@@ -55,33 +55,50 @@ export default function AllVideosComponent() {
   const [user, setUser] = useState({});
   const [categories, setCategories] = useState([]);
 
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
+  const [activeCategoryButton, setActiveCategoryButton] = useState(false);
+
+
   const videoService = new VideoService();
   const userService = new UserService();
 
   useEffect(() => {
     fetchVideos();
-  }, []);
+  }, [])
 
-async function fetchVideos(categoryId) {
-  try {
-    const [videos, categories] = await Promise.all([
-      videoService.getAllVideos({ categoryId: categoryId }),
-      videoService.getCategories()
-    ]);
-    setCategories(categories.body);
-    setVideos(videos.body);
+  async function fetchVideos(categoryId) {
+    try {
+      const [videos, categories] = await Promise.all([
+        videoService.getAllVideos(categoryId),
+        videoService.getCategories()
+      ]);
+      setCategories(categories.body);
+      setVideos(videos.body);
 
-    console.log(videos.body);
-    console.log(categoryId);
+      console.log(videos.body);
+      console.log(categoryId);
 
-    // if user is logged in
-    const user = await userService.getCurrentUser();
-    user && setUser(user.body);
-  } catch (error) {
-    console.error(error);
+      setActiveCategoryId(categoryId);
+      setActiveCategoryButton(!!categoryId);
+      // if user is logged in
+      const user = await userService.getCurrentUser();
+      user && setUser(user.body);
+    } catch (error) {
+      console.error(error);
+    }
   }
-}
 
+  function handleCategoryButtonClick(categoryId) {
+    // if the clicked category is the same as the active one, clear the active state
+    if (categoryId === activeCategoryId) {
+      setActiveCategoryId(null);
+      setActiveCategoryButton(false);
+    } else {
+      setActiveCategoryId(categoryId);
+      setActiveCategoryButton(true);
+    }
+    fetchVideos(categoryId);
+  }
   function getVideoIdFromUrl(url) {
     const regex = /[?&]v=([^&]+)/;
     if (url && typeof url === 'string') {
@@ -120,9 +137,16 @@ async function fetchVideos(categoryId) {
       <div className="filterCategorySection">
         <h2 style={{fontSize: '2rem', fontWeight: '700'}}>Sort by</h2>
         {categories.map((category) => (
-          <motion.button className="categoryButton" key={category.id} onClick={() => fetchVideos(category.id)} whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} >
-            {category.name}
-          </motion.button>
+            <motion.button
+                className="categoryButton"
+                key={category.id}
+                onClick={() => handleCategoryButtonClick(category.id)}
+                style={{ backgroundColor: activeCategoryId === category.id && activeCategoryButton ? 'red' : 'transparent' }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+            >
+              {category.name}
+            </motion.button>
         ))}
       </div>
       <StyledVideoList>
