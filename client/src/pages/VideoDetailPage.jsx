@@ -3,10 +3,12 @@ import DateUtils from "../utils/DateUtils";
 
 const StyledWrapper = styled.div`
   .videoDetail {
+    display: flex;
+    flex-direction: column;
     padding: 8rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    width: 100%;
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
   }
   .videoWrapper {
     margin-top: 2rem;
@@ -15,6 +17,13 @@ const StyledWrapper = styled.div`
     width: 100%;
     max-width: 1500px;
     height: 500px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1.35rem;
   }
 `;
 
@@ -31,11 +40,10 @@ export default function VideoDetailPage(props) {
             allowFullScreen
           />
         </div>
-          <h3>{props.videosData?.name}</h3>
-          <p>{props.videosData?.description}</p>
-          <p>Owner: {props.videosData?.owner?.name}</p>
-          <p>Created: {DateUtils.getAgeFromDate(new Date(props.videosData?.createdAt))} ago</p>
-          <p>Updated: {DateUtils.getAgeFromDate(new Date(props.videosData?.createdAt))} ago</p>
+        <h1>{props.videosData?.name}</h1>
+        <p>{props.videosData?.description}</p>
+        <p>Owner: {props.videosData?.owner?.name}</p>
+        <p>Created: {DateUtils.getAgeFromDate(new Date(props.videosData?.createdAt))} ago</p>
       </div>
     </StyledWrapper>
   );
