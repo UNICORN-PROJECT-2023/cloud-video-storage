@@ -1,11 +1,3 @@
-span {
-    background: -webkit-linear-gradient(#C81C5D, #813082, #4D3D9A);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 1000;
-}
-
 .userProfile{
     display: flex;
     justify-content: center;

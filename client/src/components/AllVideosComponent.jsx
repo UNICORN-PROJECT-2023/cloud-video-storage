@@ -48,6 +48,10 @@ const StyledVideoList = styled.div`
     font-weight: 700;
     font-size: 1.2rem;
   }
+  .videoOwner {
+    color: #aabbeb;
+    letter-spacing: 2px;
+  }
 `;
 
 export default function AllVideosComponent() {
@@ -170,9 +174,9 @@ export default function AllVideosComponent() {
               <Link to={`/video/${video.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div>
                   <h3>{video.name}</h3>
-                  <p>{video.owner.name}</p>
+                  <p className="videoOwner">{video.owner.name}</p>
                   <GetCategories array={video.categories} />
-                  <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
+                  <p>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
                 </div>
               </Link>
               {isLoggedIn() ?

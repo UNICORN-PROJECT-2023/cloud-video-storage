@@ -85,7 +85,7 @@ function HomePage(props) {
                 <p>{props.description}</p>
                 <button className="btn btn-1" onClick={scrollToVideos}>Explore</button>
             </StyledWrapper>
-            <div ref={videoRef}></div>
+                <div ref={videoRef}></div>
             <AllVideosComponent/>
         </>
     );
