@@ -127,7 +127,7 @@ function ProfilePage(props) {
           <input type="text" ref={props.urlRef} placeholder="Url" />
           <div className="categorySection">
             {props.dataForCategories.map((category) => (
-              <button className="categoryButton" key={category.id} style={category?.isSelected ? {background: "#3c6cb9"} : null} onClick={() => props.onCategoryClick(category.name)}>
+              <button className="categoryButton" key={category.id} style={category?.isSelected ? { background: "#3c6cb9" } : null} onClick={() => props.onCategoryClick(category.name)}>
                 {category.name}
               </button>
             ))}
@@ -156,6 +156,13 @@ function ProfilePage(props) {
                   <textarea type="text" ref={props.editDescriptionRef} defaultValue={video.description} style={{ width: '65%' }} rows="4" placeholder="Description" />
                   <input type="text" ref={props.editEpisodeRef} defaultValue={video.episode} placeholder="Episode" />
                   <input type="text" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
+                  <div className="categorySection">
+                    {props.dataForUpdatedCategories.map((category) => (
+                      <button className="categoryButton" key={category.id} style={category?.isSelected ? { background: "#3c6cb9" } : null} onClick={() => props.onCategoryUpdateClick(category.name)}>
+                        {category.name}
+                      </button>
+                    ))}
+                  </div>
                   <input type="text" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
                   <ButtonComponent
                     bgColor="green"
@@ -186,7 +193,7 @@ function ProfilePage(props) {
                   <div>
                     <h3>{video.name}</h3>
                     <p>{video.owner.name}</p>
-                       <GetCategories array={video.categories}/>
+                    <GetCategories array={video.categories} />
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
                   </div>
                 </Link>
@@ -228,7 +235,7 @@ function ProfilePage(props) {
                   <div>
                     <h3>{video.name}</h3>
                     <p>Owner: {video.owner.name}</p>
-                       <GetCategories array={video.categories}/>
+                    <GetCategories array={video.categories} />
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
                   </div>
                 </Link>

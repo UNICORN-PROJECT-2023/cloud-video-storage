@@ -25,6 +25,7 @@ const StyledWrapper = styled.div`
 
   & iframe {
     width: 100%;
+    max-width: 1500px;
     height: 100%;
   }
 `;

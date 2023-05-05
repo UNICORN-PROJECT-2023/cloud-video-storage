@@ -15,8 +15,8 @@ function ProfileScreen() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [categories, setCategories] = useState([]);
+  const [updateCategories, setUpdateCategories] = useState([]);
 
-  
   const [user, setUser] = useState({
     id: "",
     username: "",
@@ -64,7 +64,9 @@ function ProfileScreen() {
   async function fetchCategories() {
     try {
       const categories = await videoService.getCategories();
+      const updatedCategories = await videoService.getCategories();
       setCategories(categories.body);
+      setUpdateCategories(updatedCategories.body);
     } catch (error) {
       console.error(error);
     }
@@ -123,7 +125,11 @@ function ProfileScreen() {
         editDescriptionRef.current.value,
         Number(editEpisodeRef.current.value),
         editOriginalLinkRef.current.value,
-        [editMaterialsRef.current.value]
+        [editMaterialsRef.current.value],
+        updateCategories
+        .filter((category) => category.isSelected)
+        .map((category) => ({name: category.name})
+    )
       );
       await fetchUserVideos();
       onCancelClick();
@@ -220,9 +226,7 @@ function ProfileScreen() {
           }
           return category
         })
-
       }
-
       // add category to array
       if(createCategories.filter((category) => category.isSelected === true).length < 3) {
         return createCategories.map((category) => {
@@ -238,6 +242,33 @@ function ProfileScreen() {
     });
   }
 
+  async function OnCategoryUpdateClick(name) {
+    setUpdateCategories((updateCategories) => {
+      // remove category from array
+      if(updateCategories.find((category) => category.name === name && category.isSelected === true)) {
+        return updateCategories.map((category) => {
+          if (category.name === name) {
+            category.isSelected = false;
+            return category
+          }
+          return category
+        })
+      }
+      // add category to array
+      if(updateCategories.filter((category) => category.isSelected === true).length < 3) {
+        return updateCategories.map((category) => {
+          if (category.name === name) {
+            category.isSelected = true;
+            return category
+          }
+          return category
+        })
+      }
+
+      return updateCategories;
+    });
+  }
+
   console.log(categories)
 
   return (
@@ -248,6 +279,7 @@ function ProfileScreen() {
       error={error}
       getVideoIdFromUrl={getVideoIdFromUrl}
       dataForUserVideos={userVideos}
+      dataForUpdatedCategories = {updateCategories}
       dataForCategories = {categories}
       dataForVideoList={videoList}
 
@@ -279,8 +311,11 @@ function ProfileScreen() {
       onCancelClick={onCancelClick}
       onCreateClick={createVideo}
       onEditClick={updateVideo}
+
       onDeleteClick={deleteVideo}
       onDeleteFromList={deleteVideoFromList}
+
+      onCategoryUpdateClick={OnCategoryUpdateClick}
       onCategoryClick={onCategoryClick}
     />
   );
