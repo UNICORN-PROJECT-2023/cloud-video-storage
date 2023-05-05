@@ -9,62 +9,20 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import GetCategories from '../components/GetCategories'
 
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100svh;
-  max-width: 700px;
-  font-size: 1.5rem;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    margin: 0 1rem;
-  }
-
-  h1 {
-    padding: 1rem;
+const StyledSpan = styled.span`
+    background: -webkit-linear-gradient(#C81C5D, #813082, #4D3D9A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: 1000;
-    color: #eae164;
-  }
-  button {
-    color: #fff;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 10rem 10rem 10rem 0;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #3c6ca8;
-  }
-  input {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 2px solid white;
-    border-radius: 5px;
-    font-size: 1rem;
-    width: 65%;
-
-    &:focus {
-      outline: none;
-      border: 2px solid #b78fd6;
-    }
-  }
-    ::-ms-reveal {
-      border: 1px solid transparent;
-      border-radius: 50%;
-      box-shadow: 0 0 3px currentColor;
-  }
 `;
 
 function ProfilePage(props) {
   if (props.loading) {
     return (
-      <StyledWrapper>
+      <div style={{ minHeight: '100svh' }}>
         <h1>loading...</h1>
-      </StyledWrapper>
+      </div>
     )
   }
   // tohle se nespusti pokud je loading true
@@ -108,7 +66,7 @@ function ProfilePage(props) {
 
           ) : (
             <>
-              <h1>Welcome to your profile, <span>{props.username}</span></h1>
+              <h1>Welcome to your profile, <StyledSpan>{props.username}</StyledSpan></h1>
               <p>Here you can Edit your profile details, create your videos, see your posted videos and see your list of videos.</p>
               <ButtonComponent
                 onClick={props.userEditMode}

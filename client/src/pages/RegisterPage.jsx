@@ -64,7 +64,7 @@ function RegisterPage(props) {
             <input ref={props.passwordInput} type="password" name='password' placeholder="Password" />
             {props.error && <p style={{color: '#D2122E', fontWeight: '1000'}}>{String(props.error)}</p>}
             <p>If you already have an account <Link to="/login" style={{textDecoration: 'none', color: '#6c7482'}}>Login here</Link></p>
-            <motion.button whileHover={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
+            <motion.button whileHover={{scale: 0.9}} whileTap={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
         </StyledWrapper>
     );
 }

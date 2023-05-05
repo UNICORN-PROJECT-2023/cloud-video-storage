@@ -68,7 +68,7 @@ function LoginPage(props) {
             <input ref={props.passwordInput} type="password" name='password' placeholder="Password" />
             {props.error && <p style={{color: '#D2122E', fontWeight: '1000'}}>{String(props.error)}</p>}
             <p>If you dont have an account <Link to="/register" style={{textDecoration: 'none', color: "#6c7482"}}>Register here</Link></p>
-            <motion.button whileHover={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
+            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
         </StyledWrapper>
     );
 }
