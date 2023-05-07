@@ -50,7 +50,7 @@ export class CategoryVideoDao {
   }
 
   async remove(videoId: number, categoryId: number): Promise<void> {
-    const tempCategoryVideoEntity: CategoryVideoEntity = await this.categoryVideoRepository.findOne({
+    const tempCategoryVideoEntity: Array<CategoryVideoEntity> = await this.categoryVideoRepository.find({
       where: {
         videoEntity: {
           id: videoId,
@@ -65,6 +65,7 @@ export class CategoryVideoDao {
       return;
     }
 
-    await this.categoryVideoRepository.delete({ id: tempCategoryVideoEntity.id });
+    const ids = tempCategoryVideoEntity.map((categoryVideoEntity) => categoryVideoEntity.id);
+    await this.categoryVideoRepository.delete(ids);
   }
 }
