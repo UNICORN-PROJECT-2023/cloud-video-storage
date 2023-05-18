@@ -139,7 +139,6 @@ export default function AllVideosComponent() {
   return (
     <>
       <div className="filterCategorySection">
-        <h2 style={{fontSize: '2rem', fontWeight: '700'}}>Sort by</h2>
         {categories.map((category) => (
             <motion.button
                 className="categoryButton"

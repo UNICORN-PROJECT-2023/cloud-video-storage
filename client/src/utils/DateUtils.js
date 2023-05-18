@@ -9,10 +9,10 @@ export default class DateUtils {
     const millisecondsInDay = millisecondsInHour * 24;
     const millisecondsInMonth = millisecondsInDay * 30; // Assumption: 30 days per month
     const millisecondsInYear = millisecondsInDay * 365; // Assumption: 365 days per year
-  
+
     let ageString = '';
     let unit = '';
-  
+
     if (timeDifference >= millisecondsInYear) {
       const years = Math.floor(timeDifference / millisecondsInYear);
       unit = 'year';
@@ -38,9 +38,9 @@ export default class DateUtils {
       unit = 'second';
       ageString = `${seconds} ${unit}${seconds > 1 ? 's' : ''}`;
     }
-  
+
     return ageString || 'just now';
   }
-  
 
-  }
+
+}

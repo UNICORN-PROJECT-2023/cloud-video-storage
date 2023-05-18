@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import '../styles/Profile.css';
+import '../styles/Category.css';
 import { Link } from 'react-router-dom';
 import DateUtils from '../utils/DateUtils';
 import ButtonComponent from '../components/ButtonComponent';

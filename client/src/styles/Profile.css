@@ -73,34 +73,6 @@
     margin-top: 100px;
 }
 
-.categorySection {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 0.5rem;
-    margin: 1rem;
-}
-
-.filterCategorySection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-    gap: 1rem;
-}
-
-.categoryButton, .categoryDisplay {
-    border: none;
-    font-size: 1rem;
-    background-color: transparent;
-    color: white;
-    border-radius: 1rem;
-    padding: 0.5rem;
-    border: 2px solid white;
-    max-width: 200px;
-    min-width: 100px;
-}
-
-
 @media (max-width: 1490px) {
     .userProfile{
         flex-direction: column;
