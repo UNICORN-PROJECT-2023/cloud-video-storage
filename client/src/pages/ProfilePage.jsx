@@ -64,7 +64,6 @@ function ProfilePage(props) {
                 </div>
               </div>
             </div>
-
           ) : (
             <>
               <h1>Welcome to your profile, <StyledSpan>{props.username}</StyledSpan></h1>
