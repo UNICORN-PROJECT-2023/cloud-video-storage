@@ -150,6 +150,7 @@ function ProfilePage(props) {
                   <div>
                     <h3>{video.name}</h3>
                     <p>{video.owner.name}</p>
+                    <p>Episode: {video.episode}</p>
                     <GetCategories array={video.categories} />
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
                   </div>
@@ -192,6 +193,7 @@ function ProfilePage(props) {
                   <div>
                     <h3>{video.name}</h3>
                     <p>Owner: {video.owner.name}</p>
+                    <p>Episode: {video.episode}</p>
                     <GetCategories array={video.categories} />
                     <span>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</span>
                   </div>

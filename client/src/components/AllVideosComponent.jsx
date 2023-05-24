@@ -174,6 +174,7 @@ export default function AllVideosComponent() {
                 <div>
                   <h3>{video.name}</h3>
                   <p className="videoOwner">{video.owner.name}</p>
+                  <p  className="videoEpisode">Episode: {video.episode}</p>
                   <GetCategories array={video.categories} />
                   <p>Created: {DateUtils.getAgeFromDate(new Date(video.createdAt))} ago</p>
                 </div>
