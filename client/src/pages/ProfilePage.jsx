@@ -26,7 +26,6 @@ function ProfilePage(props) {
       </div>
     )
   }
-  // tohle se nespusti pokud je loading true
   return (
     <div style={{ marginTop: '12rem' }}>
       <div className="userProfile">
@@ -64,7 +63,6 @@ function ProfilePage(props) {
                 </div>
               </div>
             </div>
-
           ) : (
             <>
               <h1>Welcome to your profile, <StyledSpan>{props.username}</StyledSpan></h1>
@@ -80,10 +78,10 @@ function ProfilePage(props) {
         </div>
         <FormComponent>
           <h1>Create Video</h1>
-          <input type="text" ref={props.nameRef} placeholder="Title" />
-          <textarea type="text" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
-          <input type="text" ref={props.episodeRef} placeholder="Episode" />
-          <input type="text" ref={props.urlRef} placeholder="Url" />
+          <input type="text" name="title" ref={props.nameRef} placeholder="Title" />
+          <textarea name="description" ref={props.descriptionRef} style={{ width: '65%' }} rows="4" placeholder="Description" />
+          <input type="text" name="episode" ref={props.episodeRef} placeholder="Episode" />
+          <input type="text" name="url" ref={props.urlRef} placeholder="Url" />
           <div className="categorySection">
             {props.dataForCategories.map((category) => (
               <button className="categoryButton" key={category.id} style={category?.isSelected ? { background: "#3c6cb9" } : null} onClick={() => props.onCategoryClick(category.name)}>
@@ -91,7 +89,7 @@ function ProfilePage(props) {
               </button>
             ))}
           </div>
-          <input type="text" ref={props.materialsRef} placeholder="Materials" />
+          <input type="text" name="materials" ref={props.materialsRef} placeholder="Materials" />
           {props.error && <p style={{ color: '#D2122E', fontWeight: '1000' }}>{String(props.error)}</p>}
           <ButtonComponent
             bgColor="#3c6ca8"
@@ -111,10 +109,10 @@ function ProfilePage(props) {
             > {video.editMode ? (
               <>
                 <FormComponent>
-                  <input type="text" ref={props.editNameRef} defaultValue={video.name} placeholder="Title" />
-                  <textarea type="text" ref={props.editDescriptionRef} defaultValue={video.description} style={{ width: '65%' }} rows="4" placeholder="Description" />
-                  <input type="text" ref={props.editEpisodeRef} defaultValue={video.episode} placeholder="Episode" />
-                  <input type="text" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
+                  <input type="text" name="title" ref={props.editNameRef} defaultValue={video.name} placeholder="Title" />
+                  <textarea name="description" ref={props.editDescriptionRef} defaultValue={video.description} style={{ width: '65%' }} rows="4" placeholder="Description" />
+                  <input type="text" name="episode" ref={props.editEpisodeRef} defaultValue={video.episode} placeholder="Episode" />
+                  <input type="text" name="url" ref={props.editUrlRef} defaultValue={video.originalLink} placeholder="Url" />
                   <div className="categorySection">
                     {props.dataForUpdatedCategories.map((category) => (
                       <button className="categoryButton" key={category.id} style={category?.isSelected ? { background: "#3c6cb9" } : null} onClick={() => props.onCategoryUpdateClick(category.name)}>
@@ -122,7 +120,7 @@ function ProfilePage(props) {
                       </button>
                     ))}
                   </div>
-                  <input type="text" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
+                  <input type="text" name="materials" ref={props.editMaterialsRef} defaultValue={video.materials} placeholder="Materials" />
                   <ButtonComponent
                     bgColor="green"
                     onClick={() => props.updateVideo(video.id)}
@@ -205,7 +203,6 @@ function ProfilePage(props) {
                   text="Remove from list"
                 />
               </>
-
             </div>
           ))}
         </VideoGrid>

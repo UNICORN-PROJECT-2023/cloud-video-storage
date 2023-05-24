@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {motion} from 'framer-motion';
-import {Link} from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -47,8 +47,8 @@ const StyledWrapper = styled.div`
     font-size: 1rem;
     letter-spacing: 1px;
     font-weight: bold;
-    cursor: pointer;
-    background-image: linear-gradient(#C81C5D, #813082, #4D3D9A);
+    cursor: ${props => props.disabled ? '' : 'pointer'};
+    background-image: linear-gradient(${props => props.disabled ? '#d3d3d3' : '#c81c5d'}, ${props => props.disabled ? '#a8a8a8' : '#4d3d9a'});
   }
   p {
     color: rgb(235, 222, 222);
@@ -61,15 +61,37 @@ const StyledWrapper = styled.div`
 `;
 
 function LoginPage(props) {
-    return (
-        <StyledWrapper>
-            <h1>{props.title}</h1>
-            <input ref={props.emailInput} type="email" name='email' placeholder="Email" />
-            <input ref={props.passwordInput} type="password" name='password' placeholder="Password" />
-            {props.error && <p style={{color: '#D2122E', fontWeight: '1000'}}>{String(props.error)}</p>}
-            <p>If you dont have an account <Link to="/register" style={{textDecoration: 'none', color: "#6c7482"}}>Register here</Link></p>
-            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} onClick={props.onButtonClick}>{props.buttonText}</motion.button>
-        </StyledWrapper>
-    );
+  return (
+    <StyledWrapper disabled={!props.isFormValid}>
+      <h1>{props.title}</h1>
+      <input
+        ref={props.emailInput}
+        type="email"
+        name='email'
+        placeholder="Email"
+        onChange={props.onInputChange}
+      />
+      <input
+        ref={props.passwordInput}
+        type="password"
+        name='password'
+        placeholder="Password"
+        onChange={props.onInputChange}
+      />
+      {props.error && <p style={{ color: '#D2122E', fontWeight: '1000' }}>{String(props.error)}</p>}
+      <p>If you dont have an account <Link to="/register" style={{ textDecoration: 'none', color: "#6c7482" }}>Register here</Link></p>
+      {props.isFormValid ? (
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={props.onButtonClick}
+        >
+          Login
+        </motion.button>
+      ) : (
+        <button disabled>Login</button>
+      )}
+    </StyledWrapper>
+  );
 }
 export default LoginPage;

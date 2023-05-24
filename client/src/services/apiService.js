@@ -1,6 +1,10 @@
 export default class ApiService {
     constructor() {
-      this.baseURL = 'http://localhost:3000';
+      // For development
+      //this.baseURL = 'http://localhost:3000';
+      
+      // For production
+      this.baseURL = 'http://170.187.186.238:8080';
     }
   
     async get(url) {
