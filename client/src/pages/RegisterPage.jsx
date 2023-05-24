@@ -8,7 +8,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 115svh;
   max-width: 700px;
   font-size: 1.5rem;
   margin: 0 auto;
@@ -83,6 +83,18 @@ function RegisterPage(props) {
         placeholder="Password"
         onChange={props.onInputChange}
       />
+        <div style={{ marginTop: "0.5rem", marginBottom: "1rem", width: '63.79%' }}>
+            <motion.div
+                style={{
+                    height: "10px",
+                    backgroundColor: props.isFormValid ? "#5cdb5c" : "red",
+                    borderRadius: "5px"
+                }}
+                initial={{ width: 0 }}
+                animate={{ width: `${props.progress * 100}%` }}
+                transition={{ type: 'spring', stiffness: 100, damping: 10 }}
+            />
+        </div>
       {props.error && (
         <p style={{ color: '#D2122E', fontWeight: '1000' }}>{String(props.error)}</p>
       )}
@@ -92,18 +104,6 @@ function RegisterPage(props) {
           Login here
         </Link>
       </p>
-      <div style={{ marginTop: "0.5rem", marginBottom: "1rem", width: '63.79%' }}>
-        <motion.div
-          style={{
-            height: "10px",
-            backgroundColor: props.isFormValid ? "#5cdb5c" : "red",
-            borderRadius: "5px"
-          }}
-          initial={{ width: 0 }}
-          animate={{ width: `${props.progress * 100}%` }}
-          transition={{ type: 'spring', stiffness: 100, damping: 10 }}
-        />
-      </div>
       {props.isFormValid ? (
         <motion.button
           whileHover={{ scale: 1.1 }}

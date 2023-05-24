@@ -139,10 +139,22 @@ function ProfileScreen() {
   }
 
   function editMode(id) {
+    setUpdateCategories((categories) => {
+        return categories.map((category) => {
+            category.isSelected = false;
+            return category;
+        });
+    })
+
     setUserVideos((userVideos) => 
       userVideos.map((video) => {
         if (video.id === id) {
           video.editMode = true;
+          console.log(video);
+          video.categories.forEach((category) => {
+            OnCategoryUpdateClick(category.name);
+            console.log(category.name)
+          })
           return video;
         }
         video.editMode = false;
@@ -242,7 +254,7 @@ function ProfileScreen() {
     });
   }
 
-  async function OnCategoryUpdateClick(name) {
+  function OnCategoryUpdateClick(name) {
     setUpdateCategories((updateCategories) => {
       // remove category from array
       if(updateCategories.find((category) => category.name === name && category.isSelected === true)) {
@@ -268,8 +280,6 @@ function ProfileScreen() {
       return updateCategories;
     });
   }
-
-  console.log(categories)
 
   return (
     <ProfilePage
