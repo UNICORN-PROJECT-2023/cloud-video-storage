@@ -4,10 +4,11 @@ import { VideoInDto } from "../dto/video-in.dto";
 import { VideoOutDto } from "../dto/video-out.dto";
 import { CategoryOutDto } from "../dto/category.out.dto";
 import { CategoryEntity } from "src/modules/database/entity/category.entity";
+import { CategoryInDto } from "../dto/category.in.dto";
 
 export class CategoryTransformer {
 
-  static dtoToEntity(categoryDao: CategoryOutDto): CategoryEntity {
+  static dtoToEntity(categoryDao: CategoryInDto): CategoryEntity {
     const cateogryEntity = new CategoryEntity(
       categoryDao.name,
     );

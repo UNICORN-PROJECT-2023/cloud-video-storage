@@ -17,6 +17,7 @@ import { VideoListInDto } from '../dto/video-list.in.dto';
 import { VideoListService } from '../services/video-list.service';
 import { CategoryService } from '../services/category.service';
 import { CategoryOutDto } from '../dto/category.out.dto';
+import { CategoryInDto } from '../dto/category.in.dto';
 
 @ApiBearerAuth()
 @Controller("/category")
@@ -36,6 +37,20 @@ export class CategoryController {
     .setStatusCode(200)
     .setMessage("Received all categories")
     .setBody(categoryDaoArray)
+    .build();
+
+    return response;
+  }
+
+  @Get("/")
+  @Roles("user")
+  async postCategory(@Req() req: any, @Body() CategoryInDto: CategoryInDto): Promise<ResponseDto<void>> {
+
+    await this.categoryService.postCategory(CategoryInDto);
+
+    const response = new ResponseDtoBuilder<void>()
+    .setStatusCode(200)
+    .setMessage("posted new category")
     .build();
 
     return response;

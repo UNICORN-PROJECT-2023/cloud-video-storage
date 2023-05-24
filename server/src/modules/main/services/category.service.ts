@@ -16,6 +16,7 @@ import { CustomerVideoDao } from 'src/modules/database/dao/customer-video.dao';
 import { CategoryDao } from 'src/modules/database/dao/category.dao';
 import { CategoryOutDto } from '../dto/category.out.dto';
 import { CategoryTransformer } from '../transformer/category.transformer';
+import { CategoryInDto } from '../dto/category.in.dto';
 
 
 @Injectable()
@@ -38,6 +39,12 @@ export class CategoryService {
   }
 
 
+  async postCategory(categoryInDto: CategoryInDto): Promise<Array<CategoryOutDto>> {
+    const categoryEntity = CategoryTransformer.dtoToEntity(categoryInDto);
+    
+    await this.categoryDao.add(categoryEntity);
+    return;
+  }
 
 }
 
