@@ -43,6 +43,7 @@ export default function VideoDetailPage(props) {
         <h1>{props.videosData?.name}</h1>
         <p>{props.videosData?.description}</p>
         <p>Owner: {props.videosData?.owner?.name}</p>
+        <p>Episode: {props.videosData?.episode}</p>
         <p>Materials: {props.videosData?.materials}</p>
         <p>Created: {DateUtils.getAgeFromDate(new Date(props.videosData?.createdAt))} ago</p>
       </div>
