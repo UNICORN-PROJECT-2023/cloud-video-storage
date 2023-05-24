@@ -42,7 +42,7 @@ export class CategoryController {
     return response;
   }
 
-  @Get("/")
+  @Post("/")
   @Roles("user")
   async postCategory(@Req() req: any, @Body() CategoryInDto: CategoryInDto): Promise<ResponseDto<void>> {
 
